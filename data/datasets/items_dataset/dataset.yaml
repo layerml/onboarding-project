@@ -9,5 +9,5 @@ type: source
 description: "This dataset includes data about the items purchased within each order."
 
 materialization:
-    target: olist-ecommerce-datasets
-    table_name: "items"
+    target: layer-public-datasets
+    table_name: "olist_items"

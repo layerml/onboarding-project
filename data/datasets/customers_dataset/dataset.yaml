@@ -9,5 +9,5 @@ type: source
 description: "This dataset has information about the customer and its location. Use it to identify unique customers in the orders dataset and to find the orders delivery location."
 
 materialization:
-    target: olist-ecommerce-datasets
-    table_name: "customers"
+    target: layer-public-datasets
+    table_name: "olist_customers"

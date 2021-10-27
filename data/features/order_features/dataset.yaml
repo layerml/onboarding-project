@@ -36,4 +36,4 @@ features:
       environment: requirements.txt
 
 materialization:
-    target: olist-ecommerce-datasets
+    target: layer-public-datasets

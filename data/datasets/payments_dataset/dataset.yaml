@@ -9,5 +9,5 @@ type: source
 description: "This dataset includes data about the orders payment options."
 
 materialization:
-    target: olist-ecommerce-datasets
-    table_name: "payments"
+    target: layer-public-datasets
+    table_name: "olist_payments"

@@ -9,5 +9,5 @@ type: source
 description: "This is the core dataset. From each order you might find all other information."
 
 materialization:
-    target: olist-ecommerce-datasets
-    table_name: "orders"
+    target: layer-public-datasets
+    table_name: "olist_orders"

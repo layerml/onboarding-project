@@ -9,5 +9,5 @@ type: source
 description: "Translates the product_category_name to english."
 
 materialization:
-    target: olist-ecommerce-datasets
-    table_name: "category_name_translation"
+    target: layer-public-datasets
+    table_name: "olist_category_name_translation"
