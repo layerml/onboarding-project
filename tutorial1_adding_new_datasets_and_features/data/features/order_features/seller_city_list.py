@@ -1,0 +1,15 @@
+from typing import Any
+from layer import Dataset
+
+def to_list_of_set(x):
+    return list(set(x))
+
+def build_feature(items_layer_df: Dataset("items_dataset"),sellers_layer_df: Dataset("sellers_dataset")) -> Any:
+    items_df = items_layer_df.to_pandas()
+    sellers_df = sellers_layer_df.to_pandas()
+
+    orders_sellers_df = items_df.merge(sellers_df, left_on='SELLER_ID', right_on='SELLER_ID', how='left')
+
+    seller_city_list = orders_sellers_df.groupby('ORDER_ID').agg(SELLERS_CITY_LIST=('SELLER_CITY', to_list_of_set))
+
+    return seller_city_list
