@@ -2,11 +2,14 @@ from typing import Any
 from layer import Dataset
 
 def build_feature(orders_layer_df: Dataset("orders_dataset"), customers_layer_df: Dataset("customers_dataset")) -> Any:
+    # Convert Layer Datasets into pandas dataframes
     orders_df = orders_layer_df.to_pandas()
     customers_df = customers_layer_df.to_pandas()
 
+    # Merge 2 pandas dataframes
     orders_customers_df = orders_df.merge(customers_df, left_on='CUSTOMER_ID', right_on='CUSTOMER_ID', how='left')
 
-    customer_city = orders_customers_df[['ORDER_ID', 'CUSTOMER_CITY']]
+    # ORDER_STATE: Select the state of the customer the order is placed by.
+    order_state = orders_customers_df.rename(columns={"CUSTOMER_STATE": "ORDER_STATE"})[['ORDER_ID', 'ORDER_STATE']]
 
-    return customer_city
+    return order_state
