@@ -8,7 +8,7 @@ def build_feature(orders_layer_df: Dataset("orders_dataset")) -> Any:
     # Compute a new feature: DAYS_BETWEEN_ESTIMATE_ACTUAL_DELIVERY --> Days between expected and actual delivery dates
     orders_df["DAYS_BETWEEN_ESTIMATE_ACTUAL_DELIVERY"] = (orders_df.ORDER_ESTIMATED_DELIVERY_DATE - orders_df.ORDER_DELIVERED_CUSTOMER_DATE).dt.days
 
-    # Select only the columns to be returned
+    # Select only the column to be returned
     days_between_estimate_actual_delivery = orders_df[['ORDER_ID', 'DAYS_BETWEEN_ESTIMATE_ACTUAL_DELIVERY']]
 
     return days_between_estimate_actual_delivery
