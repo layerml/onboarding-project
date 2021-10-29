@@ -13,8 +13,11 @@ import numpy as np
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
+import traceback
+import sys
 
-def train_model(train: Train, order_features: Featureset("order_features"), customer_features: Featureset("customer_features")) -> Any:
+
+def train_model(train: Train, order_features: Featureset("olist_order_features"), customer_features: Featureset("olist_customer_features")) -> Any:
 
     # Fetch features
     features_df = order_features.to_pandas()
@@ -100,4 +103,7 @@ def train_model(train: Train, order_features: Featureset("order_features"), cust
     train.log_metric("Recall for the same threshold", recall_for_the_threshold)
 
     return pipeline
+
+
+
 
