@@ -1,6 +1,8 @@
 # Layer Onboarding Project
-#
+# Kaggle Public Datasets Used: https://www.kaggle.com/olistbr/brazilian-ecommerce
+
 # Project configuration file
+# For more information: https://docs.beta.layer.co/docs/projects/project-yml
 
 apiVersion: 1
 

@@ -1,7 +1,7 @@
 """
 This file demonstrates how we can develop and train our model by using the
-`features` we've developed earlier. Every ML model project
-should have a definition file like this one.
+`features` we've developed earlier. In order to build a model, every ML project
+should have a model file like this one which implements train_model function.
 """
 from typing import Any
 from layer import Featureset, Train
@@ -13,11 +13,14 @@ import numpy as np
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
-import traceback
-import sys
 
 
-def train_model(train: Train, order_features: Featureset("olist_order_features"), customer_features: Featureset("olist_customer_features")) -> Any:
+
+def train_model(
+        train: Train,
+        order_features: Featureset("olist_order_features"),
+        customer_features: Featureset("olist_customer_features")
+) -> Any:
 
     # Fetch features
     features_df = order_features.to_pandas()

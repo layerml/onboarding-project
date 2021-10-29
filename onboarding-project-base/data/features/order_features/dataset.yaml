@@ -1,3 +1,4 @@
+# A featureset is a group of calculated features that provide a high-level interface to access individual features.
 # For more information on Featureset Configuration: https://docs.beta.layer.co/docs/datacatalog/featuresets
 
 apiVersion: 1

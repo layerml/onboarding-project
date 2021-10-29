@@ -1,8 +1,17 @@
+"""
+Develop your feature in a Python file by implementing the build_feature function
+Ensure that you have the same ID column across all of your features in the featureset.
+Layer joins your singular features using that ID column.
+"""
 from typing import Any
 from layer import Dataset
 import numpy as np
 
-def build_feature(orders_dataset_layer: Dataset("orders_dataset"),customers_dataset_layer: Dataset("customers_dataset")) -> Any:
+def build_feature(
+        orders_dataset_layer: Dataset("orders_dataset"),
+        customers_dataset_layer: Dataset("customers_dataset")
+) -> Any:
+
     # Convert Layer datasets into pandas data frames
     orders_df = orders_dataset_layer.to_pandas()
     customers_df = customers_dataset_layer.to_pandas()
