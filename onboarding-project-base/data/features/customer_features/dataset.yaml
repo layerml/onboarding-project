@@ -1,0 +1,33 @@
+# A featureset is a group of calculated features that provide a high-level interface to access individual features.
+# For more information on Featureset Configuration: https://docs.beta.layer.co/docs/datacatalog/featuresets
+
+apiVersion: 1
+
+type: featureset
+
+name: "olist_customer_features"
+description: "This data could be used to predict whether a user will churn depending on its first order experience."
+
+# Name of the predefined fabric config for all features.
+# Documentation (https://docs.beta.layer.co/docs/reference/fabrics)
+fabric: "f-small"
+
+
+features:
+    - name: retention
+      description: "If the customer is churned or not after the first order.
+      1: There is another order placed by the customer after the first order (RETENTION)
+      0: There is no other order placed by the customer after the first one (CHURN)"
+      source: retention.py
+      environment: requirements.txt
+    - name: first_order_id
+      description: "ID of the first order of the customer."
+      source: first_order_id.py
+      environment: requirements.txt
+    - name: first_order_timestamp
+      description: "Timestamp of the first order of the customer."
+      source: first_order_timestamp.py
+      environment: requirements.txt
+
+materialization:
+    target: layer-public-datasets
