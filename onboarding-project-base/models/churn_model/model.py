@@ -51,6 +51,7 @@ def train_model(
     min_samples_leaf = 10
     n_estimators = 100
     subsample = 0.8
+    random_state = 42
 
 
     X_train, X_test, Y_train, Y_test = train_test_split(training_data_df.drop(columns=['RETENTION']),
@@ -71,7 +72,8 @@ def train_model(
                                        max_features=max_features,
                                        min_samples_leaf=min_samples_leaf,
                                        n_estimators=n_estimators,
-                                       subsample=subsample)
+                                       subsample=subsample,
+                                       random_state=random_state)
 
     # Layer logging all parameters
     train.log_parameters({"test_size": test_size_fraction,
