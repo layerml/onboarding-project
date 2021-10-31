@@ -35,7 +35,7 @@ def train_model(
     # 2.4. Merge 2 data frames to create the final data frame with both labels
     labels_df = pd.concat([df_with_labels_0, df_with_labels_1])
 
-    # 3. Merge 2 dataframes: Fetch only the first order features of users
+    # 3. Merge these two dataframes: Fetch only the first order features of users
     # Drop irrelevant id columns and NA rows
     training_data_df = labels_df.merge(features_df, left_on='FIRST_ORDER_ID', right_on='ORDER_ID',how='left')\
         .drop(columns=['ORDER_ID', 'FIRST_ORDER_TIMESTAMP','CUSTOMER_UNIQUE_ID', 'FIRST_ORDER_ID'])\
