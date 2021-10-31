@@ -19,7 +19,7 @@ def train_model(
         customer_features: Featureset("olist_customer_features")
 ) -> Any:
 
-    # STEP I: Training Data Generation Process
+    # STEP I: TRAINING DATA GENERATION PROCESS
     # 1. Fetch order features: Convert the Layer featureset to pandas dataframe
     features_df = order_features.to_pandas()
 
