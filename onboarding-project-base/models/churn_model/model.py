@@ -71,7 +71,7 @@ def train_model(
                                                         training_data_df.RETENTION,
                                                         test_size=test_size_fraction,
                                                         random_state=random_seed)
-    # Layer model signature logging
+    # Layer logging model signature
     train.register_input(X_train)
     train.register_output(Y_train)
 
