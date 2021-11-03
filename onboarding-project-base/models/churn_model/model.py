@@ -41,7 +41,7 @@ def train_model(
     customers_features_filtered.loc[customers_features_filtered['ORDERED_AGAIN'] == 1, 'CHURNED'] = 0 # Change the label to 0 if the customer ordered again
     customers_labels_df = customers_features_filtered[['CUSTOMER_UNIQUE_ID','FIRST_ORDER_ID','CHURNED']]
 
-    # 3. Final Training Data: Fetch only the first order features of users
+    # 3. Final Training Data: Fetch only the first order features of users and the label column
     # Drop irrelevant id columns and NA rows
     training_data_df = customers_labels_df.merge(order_features, left_on='FIRST_ORDER_ID', right_on='ORDER_ID',how='left')\
         .drop(columns=['CUSTOMER_UNIQUE_ID', 'FIRST_ORDER_ID','ORDER_ID']) \
