@@ -27,7 +27,7 @@ def train_model(
     # 2. Label Generation Process
     # 2.1. Fetch customer features: Convert the Layer featureset to pandas dataframe
     customer_features = customer_features.to_pandas()
-    # 2.2. Filter the users who did not order again using a time period of at least 365 days after their first purchases
+    # 2.2. Filter the users who did not order again at least 365 days after their first purchases
     # Note: Excluding the customers from the analysis who made their first purchase close (less than 365 days) to the max date in the data --> "2018-10-17"
     order_silence_period = 365
     dataset_max_date = datetime.date(2018, 10, 17)
