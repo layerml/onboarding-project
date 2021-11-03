@@ -37,7 +37,7 @@ def train_model(
     # 2.4. Merge 2 data frames and add a new label column: CHURNED
     # <<Definition of Churn>>: A user who has not ordered again at least in the next 365 days after its first purchase.
     customers_features_filtered = pd.concat([customer_not_ordered_again, customer_ordered_again])
-    customers_features_filtered['CHURNED'] = 1 # Label all customers 1: 'churned'
+    customers_features_filtered['CHURNED'] = 1 # Create a label column 'churned' with all 1s.
     customers_features_filtered.loc[customers_features_filtered['ORDERED_AGAIN'] == 1, 'CHURNED'] = 0 # Change the label to 0: 'not churned' if the customer ordered again
     customers_labels_df = customers_features_filtered[['CUSTOMER_UNIQUE_ID','FIRST_ORDER_ID','CHURNED']]
 
