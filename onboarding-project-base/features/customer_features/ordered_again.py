@@ -25,10 +25,10 @@ def build_feature(
     # # Add a new column total_orders: For each user, compute total number of orders
     users_df["TOTAL_ORDERS"] = users_df.groupby('CUSTOMER_UNIQUE_ID')['CUSTOMER_ID'].transform('count')
 
-    # Add the target variable: RETENTION. If a customer orders again after the first order: RETENTION=1, otherwise RETENTION=0 (CHURN)
-    users_df['CHURN'] = np.where(users_df['TOTAL_ORDERS'] > 1, 0, 1)
+    # Add a new binary column ordered_again: If a customer orders again after its first purchase
+    users_df['ORDERED_AGAIN'] = np.where(users_df['TOTAL_ORDERS'] > 1, 1, 0)
 
     # Select only the columns to be returned
-    retention = users_df[['CUSTOMER_UNIQUE_ID', 'CHURN']]
+    ordered_again = users_df[['CUSTOMER_UNIQUE_ID', 'ORDERED_AGAIN']]
 
-    return retention
+    return ordered_again

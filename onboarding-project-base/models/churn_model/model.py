@@ -12,6 +12,7 @@ import pandas as pd
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
+import datetime
 
 def train_model(
         train: Train,
@@ -21,25 +22,29 @@ def train_model(
 
     # STEP I: TRAINING DATA GENERATION PROCESS
     # 1. Fetch order features: Convert the Layer featureset to pandas dataframe
-    features_df = order_features.to_pandas()
+    order_features = order_features.to_pandas()
 
     # 2. Label Generation Process
-    # 2.1. Fetch customer features: Convert the Layer featureset to pandas dataframe (Target Variable Column: CHURN)
-    customer_features_df = customer_features.to_pandas()
-    # 2.2. Find users who have not ordered anything within 365 days after their first purchase.
-    # <<Definition of Churn>>: A user who has not ordered again in the next 365 days after its first purchase.
+    # <<Definition of Churn>>: A user who has not ordered again in the next 365 days at least after its first purchase. (Label Column: CHURN)
+    # 2.1. Fetch customer features: Convert the Layer featureset to pandas dataframe
+    customer_features = customer_features.to_pandas()
+    # 2.2. Filter the users who did not order again using a time period of 365 days at least after their first purchases
+    # Note: Excluding the customers from the analysis who made their first purchase close (less than 365 days) to the max date in the data --> "2018-10-17"
     order_silence_period = 365
-    dataset_max_date = customer_features_df.FIRST_ORDER_TIMESTAMP.dt.date.max()
-    df_with_churns = customer_features_df.loc[(customer_features_df.CHURN == 1) & ((dataset_max_date - customer_features_df.FIRST_ORDER_TIMESTAMP.dt.date).dt.days > order_silence_period)]
-    # 2.3. Use all non-churn users who have ordered more than once
-    df_with_non_churns = customer_features_df.loc[(customer_features_df.CHURN == 0)]
+    dataset_max_date = datetime.date(2018, 10, 17)
+    customer_not_ordered_again = customer_features[(customer_features.ORDERED_AGAIN == 0) & (customer_features.FIRST_ORDER_TIMESTAMP.dt.date + datetime.timedelta(days=order_silence_period) < dataset_max_date)]
+    # 2.3. Use all the users who ordered again
+    customer_ordered_again = customer_features.loc[(customer_features.ORDERED_AGAIN == 1)]
     # 2.4. Merge 2 data frames to create the final data frame with both labels
-    labels_df = pd.concat([df_with_churns, df_with_non_churns])
+    customers_features_filtered = pd.concat([customer_not_ordered_again, customer_ordered_again])
+    customers_features_filtered['CHURNED'] = 1
+    customers_features_filtered.loc[customers_features_filtered['ORDERED_AGAIN'] == 1, 'CHURNED'] = 0
+    customers_labels_df = customers_features_filtered[['CUSTOMER_UNIQUE_ID','FIRST_ORDER_ID','CHURNED']]
 
     # 3. Final Training Data: Fetch only the first order features of users
     # Drop irrelevant id columns and NA rows
-    training_data_df = labels_df.merge(features_df, left_on='FIRST_ORDER_ID', right_on='ORDER_ID',how='left')\
-        .drop(columns=['ORDER_ID', 'FIRST_ORDER_TIMESTAMP','CUSTOMER_UNIQUE_ID', 'FIRST_ORDER_ID'])\
+    training_data_df = customers_labels_df.merge(order_features, left_on='FIRST_ORDER_ID', right_on='ORDER_ID',how='left')\
+        .drop(columns=['CUSTOMER_UNIQUE_ID', 'FIRST_ORDER_ID','ORDER_ID']) \
         .dropna()
 
     #STEP II: MODEL FITTING
@@ -68,8 +73,8 @@ def train_model(
                           })
 
     # 2. Data Split
-    X_train, X_test, Y_train, Y_test = train_test_split(training_data_df.drop(columns=['CHURN']),
-                                                        training_data_df.CHURN,
+    X_train, X_test, Y_train, Y_test = train_test_split(training_data_df.drop(columns=['CHURNED']),
+                                                        training_data_df.CHURNED,
                                                         test_size=test_size_fraction,
                                                         random_state=random_seed)
     # Layer logging model signature

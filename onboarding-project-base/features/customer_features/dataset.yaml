@@ -14,18 +14,18 @@ fabric: "f-small"
 
 
 features:
-    - name: churn
-      description: "If the customer is churned or not after the first order.
-      1: There is another order placed by the customer after the first order (RETENTION)
-      0: There is no other order placed by the customer after the first one (CHURN)"
-      source: churn.py
+    - name: ordered_again
+      description: "A flag that shows whether the customer ordered again after its first purchase.
+      0: There is no other order placed by the customer after the first purchase
+      1: There is another order placed by the customer after the first purchase"
+      source: ordered_again.py
       environment: requirements.txt
     - name: first_order_id
-      description: "ID of the first order of the customer."
+      description: "ID for the first order of the customer."
       source: first_order_id.py
       environment: requirements.txt
     - name: first_order_timestamp
-      description: "Timestamp of the first order of the customer."
+      description: "Timestamp for the first order of the customer."
       source: first_order_timestamp.py
       environment: requirements.txt
 
