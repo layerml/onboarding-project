@@ -24,16 +24,17 @@ def train_model(
     features_df = order_features.to_pandas()
 
     # 2. Label Generation Process
-    # 2.1. Fetch customer features: Convert the Layer featureset to pandas dataframe (Target Variable Column: RETENTION)
-    customer_churn_targets_df = customer_features.to_pandas()
-    # 2.2. Find users who have not ordered anything within the last 365 days. Use only those users as churn users.
+    # 2.1. Fetch customer features: Convert the Layer featureset to pandas dataframe (Target Variable Column: CHURN)
+    customer_features_df = customer_features.to_pandas()
+    # 2.2. Find users who have not ordered anything within 365 days after their first purchase.
+    # <<Definition of Churn>>: A user who has not ordered again in the next 365 days after its first purchase.
     order_silence_period = 365
-    dataset_max_date = customer_churn_targets_df.FIRST_ORDER_TIMESTAMP.dt.date.max()
-    df_with_labels_0 = customer_churn_targets_df.loc[(customer_churn_targets_df.RETENTION == 0) & ((dataset_max_date - customer_churn_targets_df.FIRST_ORDER_TIMESTAMP.dt.date).dt.days > order_silence_period)]
+    dataset_max_date = customer_features_df.FIRST_ORDER_TIMESTAMP.dt.date.max()
+    df_with_churns = customer_features_df.loc[(customer_features_df.CHURN == 1) & ((dataset_max_date - customer_features_df.FIRST_ORDER_TIMESTAMP.dt.date).dt.days > order_silence_period)]
     # 2.3. Use all non-churn users who have ordered more than once
-    df_with_labels_1 = customer_churn_targets_df.loc[(customer_churn_targets_df.RETENTION == 1)]
+    df_with_non_churns = customer_features_df.loc[(customer_features_df.CHURN == 0)]
     # 2.4. Merge 2 data frames to create the final data frame with both labels
-    labels_df = pd.concat([df_with_labels_0, df_with_labels_1])
+    labels_df = pd.concat([df_with_churns, df_with_non_churns])
 
     # 3. Final Training Data: Fetch only the first order features of users
     # Drop irrelevant id columns and NA rows
@@ -67,8 +68,8 @@ def train_model(
                           })
 
     # 2. Data Split
-    X_train, X_test, Y_train, Y_test = train_test_split(training_data_df.drop(columns=['RETENTION']),
-                                                        training_data_df.RETENTION,
+    X_train, X_test, Y_train, Y_test = train_test_split(training_data_df.drop(columns=['CHURN']),
+                                                        training_data_df.CHURN,
                                                         test_size=test_size_fraction,
                                                         random_state=random_seed)
     # Layer logging model signature
@@ -93,7 +94,7 @@ def train_model(
     pipeline.fit(X_train, Y_train)
 
     # STEP III: MODEL EVALUATION
-    # 1. Predict probabilities of target 1:Non-churn
+    # 1. Predict probabilities of target 1:Churn
     probs = pipeline.predict_proba(X_test)[:,1]
     # 2. Calculate average precision and area under the receiver operating characteric curve (ROC AUC)
     avg_precision = average_precision_score(Y_test, probs, pos_label=1)

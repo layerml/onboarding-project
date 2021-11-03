@@ -14,11 +14,11 @@ fabric: "f-small"
 
 
 features:
-    - name: retention
+    - name: churn
       description: "If the customer is churned or not after the first order.
       1: There is another order placed by the customer after the first order (RETENTION)
       0: There is no other order placed by the customer after the first one (CHURN)"
-      source: retention.py
+      source: churn.py
       environment: requirements.txt
     - name: first_order_id
       description: "ID of the first order of the customer."
