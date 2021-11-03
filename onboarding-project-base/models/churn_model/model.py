@@ -25,17 +25,17 @@ def train_model(
     order_features = order_features.to_pandas()
 
     # 2. Label Generation Process
-    # <<Definition of Churn>>: A user who has not ordered again in the next 365 days at least after its first purchase. (Label Column: CHURN)
     # 2.1. Fetch customer features: Convert the Layer featureset to pandas dataframe
     customer_features = customer_features.to_pandas()
-    # 2.2. Filter the users who did not order again using a time period of 365 days at least after their first purchases
+    # 2.2. Filter the users who did not order again using a time period of at least 365 days after their first purchases
     # Note: Excluding the customers from the analysis who made their first purchase close (less than 365 days) to the max date in the data --> "2018-10-17"
     order_silence_period = 365
     dataset_max_date = datetime.date(2018, 10, 17)
     customer_not_ordered_again = customer_features[(customer_features.ORDERED_AGAIN == 0) & (customer_features.FIRST_ORDER_TIMESTAMP.dt.date + datetime.timedelta(days=order_silence_period) < dataset_max_date)]
     # 2.3. Use all the users who ordered again
     customer_ordered_again = customer_features.loc[(customer_features.ORDERED_AGAIN == 1)]
-    # 2.4. Merge 2 data frames to create the final data frame with both labels
+    # 2.4. Merge 2 data frames and add a new label column: CHURNED
+    # <<Definition of Churn>>: A user who has not ordered again at least in the next 365 days after its first purchase.
     customers_features_filtered = pd.concat([customer_not_ordered_again, customer_ordered_again])
     customers_features_filtered['CHURNED'] = 1
     customers_features_filtered.loc[customers_features_filtered['ORDERED_AGAIN'] == 1, 'CHURNED'] = 0
