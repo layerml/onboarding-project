@@ -14,7 +14,7 @@ from sklearn.preprocessing import OneHotEncoder
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 
-def train_model(train: Train, order_features: Featureset("order_features"), customer_features: Featureset("customer_features")) -> Any:
+def train_model(train: Train, order_features: Featureset("order_features_trial1"), customer_features: Featureset("customer_features")) -> Any:
 
     # Fetch features
     features_df = order_features.to_pandas()

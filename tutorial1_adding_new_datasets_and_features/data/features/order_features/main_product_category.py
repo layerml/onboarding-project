@@ -1,3 +1,7 @@
+# MAIN PRODUCT CATEGORY: Since an order might have different products from different categories,
+# the category with the highest total payment share will be the main category of the order.
+# If there is only one item in an order, then category of that item will be the main category of the order.
+
 from typing import Any
 from layer import Dataset
 import numpy as np
@@ -14,8 +18,6 @@ def build_feature(items_layer_df: Dataset("items_dataset"),products_layer_df: Da
     # Join items_products_joined with category_translation pandas dataframe (translate category names from portuguese to english)
     all_joined_df = items_products_joined.merge(category_translation_df, left_on='PRODUCT_CATEGORY_NAME', right_on='PRODUCT_CATEGORY_NAME' ,how='left')
 
-    # MAIN PRODUCT CATEGORY: Since an order might have different products from different categories, the category with the highest total payment will be the main category of the order.
-
     # CATEGORY_TOTAL_PAYMENT: Total payment for each category. (In case of having multiple categories in an order)
     all_joined_df['CATEGORY_TOTAL_PRICE'] = all_joined_df.groupby(['ORDER_ID', 'PRODUCT_CATEGORY_NAME_ENGLISH'])['PRICE'].transform('sum')
 
@@ -29,9 +31,8 @@ def build_feature(items_layer_df: Dataset("items_dataset"),products_layer_df: Da
         .agg(MAIN_PRODUCT_CATEGORY=("MAIN_PRODUCT_CATEGORY", "first"))
 
     # Main Product Category is a nominal variable not an ordinal variable. Therefore, it is better to convert this column using OneHotEncoding in the model stage.
-    # There are many categories in the dataset. It's not good practice to encode a nominal variable with too many levels into one-hot version.
-    # Article:[https://towardsdatascience.com/one-hot-encoding-is-making-your-tree-based-ensembles-worse-heres-why-d64b282b5769]
-    # Therefore, we used the top 10 categories here and call the rest of the categories as "other"
+    # However since there are many categories in this column, it's not good practice to encode a nominal variable with too many levels into one-hot version. Article:[https://towardsdatascience.com/one-hot-encoding-is-making-your-tree-based-ensembles-worse-heres-why-d64b282b5769]
+    # Therefore, after checking on the distribution of the categories in the data, we decided to use the top 10 categories here and call the rest of the categories as "other"
     top_10_categories = ["bed_bath_table", "sports_leisure", "health_beauty","computers_accessories","furniture_decor","housewares","watches_gifts","telephony","auto","toys"]
     main_product_category['MAIN_PRODUCT_CATEGORY'] = main_product_category['MAIN_PRODUCT_CATEGORY'].apply(lambda category: category if category in top_10_categories else 'other')
 

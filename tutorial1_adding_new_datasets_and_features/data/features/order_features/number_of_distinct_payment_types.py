@@ -5,9 +5,9 @@ def build_feature(payment_layer_df: Dataset("payments_dataset")) -> Any:
     # Convert Layer Dataset into pandas data frame
     payments_df = payment_layer_df.to_pandas()
 
-    # Compute a new feature: TOTAL_PAYMENT
-    total_payment = payments_df[["ORDER_ID","PAYMENT_VALUE"]]\
+    # Compute a new feature: NO_DISTINCT_PAYMENT_TYPES
+    number_of_distinct_payment_types = payments_df[["ORDER_ID","PAYMENT_TYPE"]]\
         .groupby(['ORDER_ID'], as_index=False)\
-        .agg(TOTAL_PAYMENT=("PAYMENT_VALUE", "sum"))
+        .agg(NO_DISTINCT_PAYMENT_TYPES=("PAYMENT_TYPE", "nunique"))
 
-    return total_payment
+    return number_of_distinct_payment_types

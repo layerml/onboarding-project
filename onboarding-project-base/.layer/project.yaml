@@ -1,8 +1,0 @@
-# Layer Onboarding Project
-#
-# Project configuration file
-
-apiVersion: 1
-
-# Name of your project
-name: "Layer Onboarding Project"
