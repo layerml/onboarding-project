@@ -5,7 +5,8 @@
 > In this step, you will learn how to define one of your external source tables as a Layer Dataset.
 
 > There is a new table named ***olist_reviews*** for you that resides on our public Snowflake database.
-In order to define a new Layer Dataset for this table, first create a new directory in the project directory under the **/tutorial1_before/data** and name it ***reviews_dataset***. 
+In order to define a new Layer Dataset for this table, first create a new directory in the project 
+> directory under the **/tutorial1/data** and name it ***reviews_dataset***. 
 >
 > In the new directory 'reviews_dataset', create a **dataset.yaml** file and copy the block below and paste it into this yaml file.
 
@@ -28,15 +29,17 @@ materialization:
 
 ## Step II: Add New Features
 
-> In this step, you will learn how to create 2 new Layer Features and add them into an existing Layer Featureset.
+> In this step, you will learn how to create 2 new Layer Features and add them into the existing Layer Featureset: ***order_features***
 
-> We will create and add 2 features below into the existing featureset ***order_features***:
+> We will create and add 2 features below into our project:
 > - Review Score
 > - Total Items
 > 
-> For each feature, we will first create their respective python source files and then add them into an existing featureset file with their descriptions.
+> For each feature, we will first create its respective python source file and then define it into the featureset along with its description.
 
-> First, create ***review_score.py*** and ***total_items.py*** files and add them in the project directory under the **/tutorial1_before/features/order_features**. Copy and paste the code blocks below into these files.
+> Create ***review_score.py*** and ***total_items.py*** python source files and add them in the project directory under the **/tutorial1/features/order_features**. 
+> 
+>Copy and paste the code blocks below into the respective files.
 
 ***review_score.py***
 ```python
@@ -74,7 +77,7 @@ def build_feature(items_layer_df: Dataset("items_dataset")) -> Any:
     return total_items
 ```
 
-> Now, we will add the feature definitions below into the featureset yaml file: **/tutorial1_before/features/order_features/dataset.yaml** under the 'features' section. 
+> Now, we will add the feature definitions below into the featureset yaml file: **/tutorial1/features/order_features/dataset.yaml** under the 'features' section. 
 >
 > <ins>Note:</ins> In this tutorial, we don't need any new Python packages to be installed for these 2 new features. Therefore, we will use the file as it is. 
 > However, whenever you use new Python packages for your newly added features, make sure that you add the packages in the **requirements.txt**.
