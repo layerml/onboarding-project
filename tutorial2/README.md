@@ -19,18 +19,23 @@ layer start featureset order_features_high_level
 
 ## Required changes in the project directory
 
-> In this step, you will create the files required for adding a new layer featureset into your existing project.
->
-> We will add a new featureset into the project which contains 3 features:
-> - is_multi_items
-> - shipping_payment_perc
-> - total_waiting
->
-> Go to the project tree and create a new directory for your new featureset. 
-> Since this featureset will be based on the existing ***order_features*** featureset, 
-> let's name it ***order_features_high_level*** for the sake of clarity.
->
-> In the new directory 'order_features_high_level',create respective **python source files (.py)** for the 3 features above then create a **dataset.yaml** file and a **requirements.txt** file.
+- In this step, you will create the files required for adding a new layer featureset into your existing project.
+
+
+- We will add a new featureset into the project which contains 3 features:
+  - is_multi_items
+  - shipping_payment_perc
+  - total_waiting
+
+
+- Go to the project tree and create a new directory for your new featureset. 
+
+
+- Since this featureset will be based on the existing ***order_features*** featureset, 
+let's name it ***order_features_high_level*** for the sake of clarity.
+
+
+- In the new directory 'order_features_high_level', create respective **python source files (.py)** for the 3 features above then create a **dataset.yaml** file and a **requirements.txt** file.
 
 **How newly added files look in the project directory tree**
 ```
