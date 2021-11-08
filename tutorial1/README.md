@@ -31,7 +31,7 @@ materialization:
 
 > In this step, you will learn how to create 2 new Layer Features and add them into the existing Layer Featureset: ***order_features***
 
-> We will create and add 2 features below into our project:
+> We will add 2 new features into the project:
 > - Review Score
 > - Total Items
 > 
