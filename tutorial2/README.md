@@ -1,21 +1,38 @@
 # Tutorial II: How to create a new Layer Featureset based on another Featureset
 
+## Install and run
+To check out the Tutorial II, run:
+```commandline
+1. layer clone https://github.com/layerml/onboarding-project.git
+2. cd onboarding-project/tutorial2
+```
+
+To build the project:
+```commandline
+layer start
+```
+
+To build the new featureset after the following steps below:
+```commandline
+layer start featureset order_features_high_level
+```
+
 ## Required changes in the project directory
 
 > In this step, you will create the files required for adding a new layer featureset into your existing project.
-
+>
 > We will add a new featureset into the project which contains 3 features:
 > - is_multi_items
 > - shipping_payment_perc
 > - total_waiting
-
+>
 > Go to the project tree and create a new directory for your new featureset. 
 > Since this featureset will be based on the existing ***order_features*** featureset, 
 > let's name it ***order_features_high_level*** for the sake of clarity.
 >
 > In the new directory 'order_features_high_level',create respective **python source files (.py)** for the 3 features above then create a **dataset.yaml** file and a **requirements.txt** file.
 
-**Newly added files in the project directory**
+**How newly added files look in the project directory tree**
 ```
 .
 ├──tutorial2  

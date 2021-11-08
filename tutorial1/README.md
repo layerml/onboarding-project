@@ -1,22 +1,27 @@
 # Tutorial I: How to add a new Layer Dataset and a Layer Feature into your project
 
 ## Install and run
-To check out the Tutorial I example, run:
+To check out the Tutorial I, run:
 ```commandline
 1. layer clone https://github.com/layerml/onboarding-project.git
 2. cd onboarding-project/tutorial1
 ```
 
-To build the project::
+To build the project:
 ```commandline
-1. layer start
+layer start
+```
+
+To rebuild the featureset after the following steps below:
+```commandline
+layer start featureset order_features
 ```
 
 
 ## Add a new Layer Dataset
 
 > In this step, you will learn how to define one of your external source tables as a Layer Dataset.
-
+>
 > There is a table named ***olist_reviews*** that resides on the Layer's public database on Snowflake. Let's say, we would like use this table for our Layer Project.
 > 
 >In order to define a new Layer Dataset entity for the table, first create a new directory under the project 
@@ -24,7 +29,7 @@ To build the project::
 >
 > In the new directory 'reviews_dataset', create a **dataset.yaml** file and copy the block below and paste it into this yaml file.
 
-**Newly added files in the project directory**
+**How newly added files look in the project directory tree**
 ```
 .
 ├──tutorial1  
@@ -55,16 +60,16 @@ materialization:
 ### Creating source files
 
 > In this step, you will learn how to create 2 new Layer Features and add them into the existing Layer Featureset: ***order_features***
-
+>
 > We will add 2 new features into the project:
 > - Review Score
 > - Total Items
 > 
 > For each feature, we will first create its respective python source file and then define it into the featureset along with its description.
-
+>
 > Create ***review_score.py*** and ***total_items.py*** python source files and add them in the project directory under the **/tutorial1/features/order_features**. 
 
-**Newly added files in the project directory**
+**How newly added files look in the project directory tree**
 ```
 .
 ├──tutorial1  
