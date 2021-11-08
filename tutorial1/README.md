@@ -1,6 +1,6 @@
-# Tutorial I: How to add new Layer Datasets and Features into your project
+# Tutorial I: How to add a new Layer Dataset and a Layer Feature into your project
 
-## Step I: Add New Datasets
+## Step I: Add New Layer Datasets
 
 > In this step, you will learn how to define one of your external source tables as a Layer Dataset.
 
@@ -28,7 +28,7 @@ materialization:
 
 > That's it, you are done. Congratulations! You just defined a source table on your database as a Layer Dataset.
 
-## Step II: Add New Features
+## Step II: Add New Layer Features
 
 > In this step, you will learn how to create 2 new Layer Features and add them into the existing Layer Featureset: ***order_features***
 
