@@ -56,11 +56,9 @@ materialization:
     table_name: "olist_reviews"
 ```
 
-> That's it, you are done. Congratulations! You just defined a source table on your database as a Layer Dataset.
-
 ## Step II: Add new features into an existing Layer Featureset
 
-### Creating source files
+### Creating feature source files
 
 - In this step, you will learn how to create 2 new Layer Features and add them into the existing Layer Featureset: ***order_features***
 
@@ -145,3 +143,4 @@ def build_feature(items_layer_df: Dataset("items_dataset")) -> Any:
   source: total_items.py
   environment: requirements.txt
 ```
+> That's it, you are done. Congratulations! You just learned how define a source table as a Layer Dataset entity and how to add new features into your existing Layer Featureset.
