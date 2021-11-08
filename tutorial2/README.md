@@ -1,4 +1,4 @@
-# Tutorial II: How to create a new Featureset based on another Featureset
+# Tutorial II: How to create a new Layer Featureset based on another Featureset
 
 ## Step I: Changes In Your Project Directory
 

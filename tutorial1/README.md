@@ -1,4 +1,4 @@
-# Tutorial I: How to add new Layer Datasets and Features into your Project
+# Tutorial I: How to add new Layer Datasets and Features into your project
 
 ## Step I: Add New Datasets
 
