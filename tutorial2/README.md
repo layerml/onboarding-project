@@ -50,7 +50,7 @@ let's name it ***order_features_high_level*** for the sake of clarity.
 │   │   │   ├── dataset.yaml
 ```
 ## Put relevant contents into these files
->Copy and paste the code blocks below into the respective files.
+>Copy the code blocks below and paste into the respective files.
 
 ***is_multi_items.py***
 ```python
