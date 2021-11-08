@@ -37,7 +37,7 @@ layer start featureset order_features_high_level
   - create a **requirements.txt** file for listing required python packages.
 
 **How newly added files look in the project directory tree**
-```{r df-drop-ok, class.source="bg-success"}
+```
 .
 ├──tutorial2  
 │   ├── features
