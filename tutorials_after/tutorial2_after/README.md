@@ -1,5 +1,5 @@
-This is the expected outcome once you complete the Tutorial I. If you wish, you can compare and check to see if you got the same result
+This is the expected outcome once you complete the Tutorial II. If you wish, you can compare and check to see if you got the correct result.
 
-**Tutorial I: How to Add New Source Datasets and Features into an Layer Project:** 
+**Tutorial II: How to Add A New Featureset Into My Layer Project Depends On An Existing Featureset:** 
 
-https://github.com/layerml/onboarding-project/tree/main/tutorial1
+https://github.com/layerml/onboarding-project/tree/main/tutorial2

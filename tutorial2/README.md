@@ -1,4 +1,4 @@
-# Tutorial II: How to Add A New Featureset Which Depends On An Existing Featureset
+# Tutorial II: How to Add A New Featureset Into My Layer Project Depends On An Existing Featureset
 
 ## Step I: Changes In Your Project Directory
 
@@ -14,7 +14,8 @@
 > let's name it ***order_features_high_level*** for the sake of clarity.
 >
 > In the new directory 'order_features_high_level',create respective **python source files (.py)** for the 3 features above then create a **dataset.yaml** file and a **requirements.txt** file.
- 
+
+## Step II: Fill The New Files With The Relevant Contents
 >Copy and paste the code blocks below into the respective files.
 
 ***is_multi_items.py***
@@ -79,7 +80,7 @@ apiVersion: 1
 type: featureset
 
 name: "order_high_level_features"
-description: "High level features about orders based on other order featuresets."
+description: "Higher level features about orders based on other order featureset: order_features"
 
 
 features:
@@ -100,5 +101,5 @@ materialization:
     target: olist-ecommerce-datasets
 ```
 
-> That's it, you are done. Congratulations! You just defined a source table on your database as a Layer Dataset.
+> That's it, you are done. Congratulations! You just added a new featureset into your Layer project depends on an existing featureset.
 
