@@ -18,9 +18,9 @@ layer start featureset order_features
 ```
 
 
-## Add a new Layer Dataset
+## Step I : Add a new Layer Dataset
 
->In this step, you will learn how to define one of your external source tables as a Layer Dataset.
+- In this step, you will learn how to define one of your external source tables as a Layer Dataset.
 
 
 - There is a table named ***olist_reviews*** that resides on the Layer's public database on Snowflake. Let's say, we would like use this table for our Layer Project.
@@ -58,7 +58,7 @@ materialization:
 
 > That's it, you are done. Congratulations! You just defined a source table on your database as a Layer Dataset.
 
-## Add new features into an existing Layer Featureset
+## Step II: Add new features into an existing Layer Featureset
 
 ### Creating source files
 
