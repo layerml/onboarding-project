@@ -13,8 +13,12 @@ fabric: "f-medium"
 
 
 features:
+    - name: review_score
+      description: "Review rating of the order between 1 and 5."
+      source: review_score.py
+      environment: requirements.txt
     - name: total_items
-      description: "Total number of items in the order."
+      description: "Total number of items bought in the order."
       source: total_items.py
       environment: requirements.txt
     - name: avg_product_description_length

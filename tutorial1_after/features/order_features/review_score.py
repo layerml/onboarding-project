@@ -1,6 +1,5 @@
 from typing import Any
 from layer import Dataset
-import pandas as pd
 
 def build_feature(reviews_layer_df: Dataset("reviews_dataset")) -> Any:
     # Convert Layer Datasets into pandas dataframes

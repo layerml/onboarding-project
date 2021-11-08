@@ -4,8 +4,8 @@
 
 > In this step, you will learn how to define one of your external source tables as a Layer Dataset.
 
-> There is a new table named ***'olist_reviews'*** for you that resides on our public Snowflake database.
-In order to define a new Layer Dataset for this table, first create a new directory in the project directory tree under **/tutorial1_before/data** and name it ***'reviews_dataset'***. 
+> There is a new table named ***olist_reviews*** for you that resides on our public Snowflake database.
+In order to define a new Layer Dataset for this table, first create a new directory in the project directory under the **/tutorial1_before/data** and name it ***reviews_dataset***. 
 >
 > In the new directory 'reviews_dataset', create a **dataset.yaml** file and copy the block below and paste it into this yaml file.
 
@@ -30,9 +30,67 @@ materialization:
 
 > In this step, you will learn how to create 2 new Layer Features and add them into an existing Layer Featureset.
 
-> We will create and add these 2 features:
+> We will create and add 2 features below into the existing featureset ***order_features***:
 > - Review Score
 > - Total Items
 > 
-> For each feature, we will first create a respective python source file and add them in the project directoy tree under **/tutorial1_before/features/order_features**. 
-> Create ***'review_score.py'*** and ***'total_distinct_items.py'***
+> For each feature, we will first create their respective python source files and then add them into an existing featureset file with their descriptions.
+
+> First, create ***review_score.py*** and ***total_items.py*** files and add them in the project directory under the **/tutorial1_before/features/order_features**. Copy and paste the code blocks below into these files.
+
+***review_score.py***
+```python
+from typing import Any
+from layer import Dataset
+
+def build_feature(reviews_layer_df: Dataset("reviews_dataset")) -> Any:
+    # Convert Layer Datasets into pandas dataframes
+    reviews_df = reviews_layer_df.to_pandas()
+
+    # For some reason, there might be multiple reviews for a single order in the data - Only take into account the latest review record
+    # Compute a new feature: LATEST_REVIEW_TIMES
+    reviews_df['LATEST_REVIEW_TIMES'] = reviews_df.groupby(['ORDER_ID'])['REVIEW_ANSWER_TIMESTAMP'].transform('max')
+
+    # Fetch only latest review
+    reviews_df = reviews_df[reviews_df['LATEST_REVIEW_TIMES'] == reviews_df['REVIEW_ANSWER_TIMESTAMP']]
+
+    # Return only ORDER_ID and REVIEW_SCORE columns
+    review_score = reviews_df[['ORDER_ID', 'REVIEW_SCORE']]
+
+    return review_score
+```
+***total_items.py***
+```python
+from typing import Any
+from layer import Dataset
+
+def build_feature(items_layer_df: Dataset("items_dataset")) -> Any:
+    # Convert Layer Dataset into pandas data frame
+    items_df = items_layer_df.to_pandas()
+
+    # Compute a new feature: TOTAL_ITEMS and return ORDER_ID and the relevant feature
+    total_items = items_df.groupby('ORDER_ID', as_index=False).agg(TOTAL_ITEMS=("PRODUCT_ID", "count"))
+
+    return total_items
+```
+
+> Now, we will add the feature definitions below into the featureset yaml file: **/tutorial1_before/features/order_features/dataset.yaml** under the 'features' section. 
+>
+> <ins>Note:</ins> In this tutorial, we don't need any new Python packages to be installed for these 2 new features. Therefore, we will use the file as it is. 
+> However, whenever you use new Python packages for your newly added features, make sure that you add the packages in the **requirements.txt**.
+
+**Feature Definition: review_score**
+```yaml
+  name: review_score
+  description: "Review rating of the order between 1 and 5."
+  source: review_score.py
+  environment: requirements.txt
+```
+
+**Feature Definition: total_items**
+```yaml
+  name: total_items
+  description: "Total number of items in the order."
+  source: total_items.py
+  environment: requirements.txt
+```

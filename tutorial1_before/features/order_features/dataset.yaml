@@ -13,10 +13,6 @@ fabric: "f-medium"
 
 
 features:
-    - name: total_items
-      description: "Total number of items in the order."
-      source: total_items.py
-      environment: requirements.txt
     - name: avg_product_description_length
       description: "An order might be consisted of several products. This is average description length of all products in the order.
       If the order has only one product, then the value of this columns is that product's description length."
