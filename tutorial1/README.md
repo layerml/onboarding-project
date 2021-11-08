@@ -1,6 +1,6 @@
-# Tutorial I: How to Add New Source Datasets and Features into an Layer Project
+# Tutorial I: How to Add New Source Datasets and Features Into My Layer Project
 
-## Step I: Add a New Dataset
+## Step I: Add New Datasets
 
 > In this step, you will learn how to define one of your external source tables as a Layer Dataset.
 

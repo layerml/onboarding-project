@@ -1,8 +1,8 @@
-# Tutorial II: How to Add A New Featureset Into My Layer Project Depends On An Existing Featureset
+# Tutorial II: How to Create A New Featureset Depending On An Existing Featureset & Add It Into My Layer Project
 
 ## Step I: Changes In Your Project Directory
 
-> In this step, you will learn and create the files required for adding a new layer featureset into your existing project.
+> In this step, you will create the files required for adding a new layer featureset into your existing project.
 
 > We will add a new featureset into the project which contains 3 features:
 > - is_multi_items
@@ -101,5 +101,5 @@ materialization:
     target: olist-ecommerce-datasets
 ```
 
-> That's it, you are done. Congratulations! You just added a new featureset into your Layer project depends on an existing featureset.
+> That's it, you are done. Congratulations! You just learned how to create a new featureset depends on an existing featureset and add it into your Layer project.
 
