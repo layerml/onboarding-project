@@ -1,15 +1,46 @@
-# Tutorial I: How to Add New Source Datasets and Features into an Layer Project
+# Tutorial I: How to add a new Layer Dataset and a Layer Feature into your project
 
-## Step I: Add a New Dataset
+## Install and run
+To check out the Tutorial I, run:
+```commandline
+1. layer clone https://github.com/layerml/onboarding-project.git
+2. cd onboarding-project/tutorial1
+```
 
-> In this step, you will learn how to define one of your external source tables as a Layer Dataset.
+To build the project:
+```commandline
+layer start
+```
 
-> There is a new table named ***olist_reviews*** for you that resides on our public Snowflake database.
-In order to define a new Layer Dataset for this table, first create a new directory in the project 
-> directory under the **/tutorial1/data** and name it ***reviews_dataset***. 
->
-> In the new directory 'reviews_dataset', create a **dataset.yaml** file and copy the block below and paste it into this yaml file.
+To rebuild the featureset after the following steps below:
+```commandline
+layer start featureset order_features
+```
 
+
+## Step I : Add a new Layer Dataset
+
+- In this step, you will learn how to define one of your external source tables as a Layer Dataset.
+
+
+- There is a table named ***olist_reviews*** that resides on the Layer's public database on Snowflake. Let's say, we would like use this table for our Layer Project.
+
+
+- In order to define a new Layer Dataset entity for the table, first create a new directory under the **'/tutorial1/data'** and name it ***reviews_dataset***. 
+
+
+- In the new directory '/tutorial1/data/reviews_dataset', create a **dataset.yaml** file.
+
+**How newly added files look in the project directory tree**
+```
+.
+├──tutorial1  
+│   ├── data
+│   │   ├── reviews_dataset
+│   │   │   ├── dataset.yaml
+```
+
+> Copy the block below and paste it into the dataset.yaml file
 ```yaml
 # For more information on Dataset Configuration: https://docs.beta.layer.co/docs/datacatalog/datasets
 
@@ -25,20 +56,32 @@ materialization:
     table_name: "olist_reviews"
 ```
 
-> That's it, you are done. Congratulations! You just defined a source table on your database as a Layer Dataset.
+## Step II: Add new features into an existing Layer Featureset
 
-## Step II: Add New Features
+### Creating feature source files
 
-> In this step, you will learn how to create 2 new Layer Features and add them into the existing Layer Featureset: ***order_features***
+- In this step, you will learn how to create 2 new Layer Features and add them into the existing Layer Featureset: ***order_features***
 
-> We will create and add 2 features below into our project:
-> - Review Score
-> - Total Items
-> 
-> For each feature, we will first create its respective python source file and then define it into the featureset along with its description.
 
-> Create ***review_score.py*** and ***total_items.py*** python source files and add them in the project directory under the **/tutorial1/features/order_features**. 
-> 
+- We will add 2 new features into the project:
+  - Review Score
+  - Total Items
+ 
+
+- For each feature, we will first create its respective python source file.
+  - Create ***review_score.py*** and ***total_items.py*** python source files 
+  - Add them in the project directory under the **/tutorial1/features/order_features**. 
+
+**How newly added files look in the project directory tree**
+```
+.
+├──tutorial1  
+│   ├── features
+│   │   ├── order_features
+│   │   │   ├── review_score.py
+│   │   │   ├── total_items.py
+```
+ 
 >Copy and paste the code blocks below into the respective files.
 
 ***review_score.py***
@@ -76,13 +119,16 @@ def build_feature(items_layer_df: Dataset("items_dataset")) -> Any:
 
     return total_items
 ```
+### Adding feature definitions into the featureset
+- Now, we will add the feature definitions below into the featureset yaml file: **/tutorial1/features/order_features/dataset.yaml** 
 
-> Now, we will add the feature definitions below into the featureset yaml file: **/tutorial1/features/order_features/dataset.yaml** under the 'features' section. 
->
+
+- Add the feature definitions below under the 'features' section in the yaml file. 
+
 > <ins>Note:</ins> In this tutorial, we don't need any new Python packages to be installed for these 2 new features. Therefore, we will use the file as it is. 
 > However, whenever you use new Python packages for your newly added features, make sure that you add the packages in the **requirements.txt**.
 
-**Feature Definition: review_score**
+***Feature Definition: review_score***
 ```yaml
   name: review_score
   description: "Review rating of the order between 1 and 5."
@@ -90,10 +136,11 @@ def build_feature(items_layer_df: Dataset("items_dataset")) -> Any:
   environment: requirements.txt
 ```
 
-**Feature Definition: total_items**
+***Feature Definition: total_items***
 ```yaml
   name: total_items
   description: "Total number of items in the order."
   source: total_items.py
   environment: requirements.txt
 ```
+> That's it, you are done. Congratulations! You just learned how define a source table as a Layer Dataset entity and how to add new features into your existing Layer Featureset.
