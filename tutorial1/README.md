@@ -1,12 +1,13 @@
-# Tutorial I: How to Add New Source Datasets and Features Into My Layer Project
+# Tutorial I: How to add new Layer Datasets and Features into your Project
 
 ## Step I: Add New Datasets
 
 > In this step, you will learn how to define one of your external source tables as a Layer Dataset.
 
-> There is a new table named ***olist_reviews*** for you that resides on our public Snowflake database.
-In order to define a new Layer Dataset for this table, first create a new directory in the project 
-> directory under the **/tutorial1/data** and name it ***reviews_dataset***. 
+> There is a table named ***olist_reviews*** that resides on the Layer's public database on Snowflake. Let's say, we would like use this table for our Layer Project.
+> 
+>In order to define a new Layer Dataset entity for the table, first create a new directory under the project 
+> directory: **'/tutorial1/data'** and name it ***reviews_dataset***. 
 >
 > In the new directory 'reviews_dataset', create a **dataset.yaml** file and copy the block below and paste it into this yaml file.
 
