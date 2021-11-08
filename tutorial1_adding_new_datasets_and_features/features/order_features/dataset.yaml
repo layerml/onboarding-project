@@ -33,7 +33,7 @@ features:
       source: avg_product_photos_qty.py
       environment: requirements.txt
     - name: total_product_price
-      description: "Total price for items of the order."
+      description: "Total price paid for products only (Not including freight)."
       source: total_product_price.py
       environment: requirements.txt
     - name: total_different_sellers
