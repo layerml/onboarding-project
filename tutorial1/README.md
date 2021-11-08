@@ -20,7 +20,7 @@ layer start featureset order_features
 
 ## Add a new Layer Dataset
 
-- In this step, you will learn how to define one of your external source tables as a Layer Dataset.
+>In this step, you will learn how to define one of your external source tables as a Layer Dataset.
 
 
 - There is a table named ***olist_reviews*** that resides on the Layer's public database on Snowflake. Let's say, we would like use this table for our Layer Project.
@@ -40,6 +40,7 @@ layer start featureset order_features
 │   │   │   ├── dataset.yaml
 ```
 
+> Copy the block below and paste into the dataset.yaml file
 ```yaml
 # For more information on Dataset Configuration: https://docs.beta.layer.co/docs/datacatalog/datasets
 
