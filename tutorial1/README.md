@@ -128,7 +128,7 @@ def build_feature(items_layer_df: Dataset("items_dataset")) -> Any:
 > <ins>Note:</ins> In this tutorial, we don't need any new Python packages to be installed for these 2 new features. Therefore, we will use the file as it is. 
 > However, whenever you use new Python packages for your newly added features, make sure that you add the packages in the **requirements.txt**.
 
-**Feature Definition: review_score**
+***Feature Definition: review_score***
 ```yaml
   name: review_score
   description: "Review rating of the order between 1 and 5."
@@ -136,7 +136,7 @@ def build_feature(items_layer_df: Dataset("items_dataset")) -> Any:
   environment: requirements.txt
 ```
 
-**Feature Definition: total_items**
+***Feature Definition: total_items***
 ```yaml
   name: total_items
   description: "Total number of items in the order."
