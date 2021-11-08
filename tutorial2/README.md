@@ -49,7 +49,7 @@ layer start featureset order_features_high_level
 │   │   │   ├── dataset.yaml
 ```
 ## Put relevant contents into these files
->Copy the code blocks below and paste into the respective files.
+>Copy the code blocks below and paste them into the respective files.
 
 ***is_multi_items.py***
 ```python

@@ -40,7 +40,7 @@ layer start featureset order_features
 │   │   │   ├── dataset.yaml
 ```
 
-> Copy the block below and paste into the dataset.yaml file
+> Copy the block below and paste it into the dataset.yaml file
 ```yaml
 # For more information on Dataset Configuration: https://docs.beta.layer.co/docs/datacatalog/datasets
 
