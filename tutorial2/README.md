@@ -1,6 +1,6 @@
 # Tutorial II: How to create a new Layer Featureset based on another Featureset
 
-## Step I: Changes In Your Project Directory
+## Required changes in the project directory
 
 > In this step, you will create the files required for adding a new layer featureset into your existing project.
 
@@ -15,7 +15,19 @@
 >
 > In the new directory 'order_features_high_level',create respective **python source files (.py)** for the 3 features above then create a **dataset.yaml** file and a **requirements.txt** file.
 
-## Step II: Fill The New Files With The Relevant Contents
+**Newly added files in the project directory**
+```
+.
+├──tutorial2  
+│   ├── features
+│   │   ├── order_high_level_features
+│   │   │   ├── is_multi_items.py
+│   │   │   ├── shipping_payment_perc.py
+│   │   │   ├── total_waiting.py
+│   │   │   ├── requirements.txt
+│   │   │   ├── dataset.yaml
+```
+## Put relevant contents into these files
 >Copy and paste the code blocks below into the respective files.
 
 ***is_multi_items.py***

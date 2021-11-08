@@ -1,6 +1,19 @@
 # Tutorial I: How to add a new Layer Dataset and a Layer Feature into your project
 
-## Step I: Add New Layer Datasets
+## Install and run
+To check out the Tutorial I example, run:
+```commandline
+1. layer clone https://github.com/layerml/onboarding-project.git
+2. cd onboarding-project/tutorial1
+```
+
+To build the project::
+```commandline
+1. layer start
+```
+
+
+## Add a new Layer Dataset
 
 > In this step, you will learn how to define one of your external source tables as a Layer Dataset.
 
@@ -10,6 +23,15 @@
 > directory: **'/tutorial1/data'** and name it ***reviews_dataset***. 
 >
 > In the new directory 'reviews_dataset', create a **dataset.yaml** file and copy the block below and paste it into this yaml file.
+
+**Newly added files in the project directory**
+```
+.
+├──tutorial1  
+│   ├── data
+│   │   ├── reviews_dataset
+│   │   │   ├── dataset.yaml
+```
 
 ```yaml
 # For more information on Dataset Configuration: https://docs.beta.layer.co/docs/datacatalog/datasets
@@ -28,7 +50,9 @@ materialization:
 
 > That's it, you are done. Congratulations! You just defined a source table on your database as a Layer Dataset.
 
-## Step II: Add New Layer Features
+## Add new features into an existing Layer Featureset
+
+### Creating source files
 
 > In this step, you will learn how to create 2 new Layer Features and add them into the existing Layer Featureset: ***order_features***
 
@@ -39,7 +63,17 @@ materialization:
 > For each feature, we will first create its respective python source file and then define it into the featureset along with its description.
 
 > Create ***review_score.py*** and ***total_items.py*** python source files and add them in the project directory under the **/tutorial1/features/order_features**. 
-> 
+
+**Newly added files in the project directory**
+```
+.
+├──tutorial1  
+│   ├── features
+│   │   ├── order_features
+│   │   │   ├── review_score.py
+│   │   │   ├── total_items.py
+```
+ 
 >Copy and paste the code blocks below into the respective files.
 
 ***review_score.py***
@@ -77,7 +111,7 @@ def build_feature(items_layer_df: Dataset("items_dataset")) -> Any:
 
     return total_items
 ```
-
+### Adding feature definitions into the featureset
 > Now, we will add the feature definitions below into the featureset yaml file: **/tutorial1/features/order_features/dataset.yaml** under the 'features' section. 
 >
 > <ins>Note:</ins> In this tutorial, we don't need any new Python packages to be installed for these 2 new features. Therefore, we will use the file as it is. 
