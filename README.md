@@ -1,3 +1,3 @@
 # onboarding-project
 
-OLIST DATABASE
+![Project Big Picture](https://imgur.com/HRhd2Y0)
