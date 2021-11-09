@@ -63,7 +63,7 @@ layer start
 - **Goal:** Predict churn for the Brazilian e-commerce company-Olist's customers based on their first order experience
 
 
-- **Definition of churn:** If a customer is not going to order again in the next 365 days right after its first order
+- **Definition of churn:** A churned customer who did not order again in the following 365 days after its first order
 
   - Reasoning: Since we only have customers' data in the OLIST's Kaggle datasets who have ordered at least once before, we formulate the problem accordingly.
   - Target Variable: CHURNED
