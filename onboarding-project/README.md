@@ -1,4 +1,4 @@
-# Onboarding Project
+# Onboarding Project: Churn Prediction
 
 ## Install and run
 To check out the Tutorial I, run:
@@ -12,7 +12,7 @@ To build the project:
 layer start
 ```
 
-## Onboarding Base Project Directory Tree
+## Onboarding Project Directory Tree
 ```
 .
 ├── .layer
@@ -68,7 +68,7 @@ layer start
   - Reasoning: Since we have users' data in the OLIST's Kaggle datasets who have ordered at least once before, we formulate the problem accordingly.
   - Target Variable: CHURNED
     - if `ordered_again` _[from customer_features]_ is 1, then 0
-    - else then 1
+    - else, then 1
 
 
 - **Feature Descriptions:**
