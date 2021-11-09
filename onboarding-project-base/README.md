@@ -56,11 +56,11 @@ layer start
 - **General Info:**
   - Total of 6 source Datasets used
   - Total of 2 Featuresets are generated
-    - customer_features: It has 3 user features
-    - order_features: It has 5 order features
+    - *customer_features: Total of 3 user features
+    - order_features: Total of 5 order features
 
 
-- **Goal:** Fit a model to predict if a customer will churn
+- **Goal:** Predict if a customer will churn based on its first order experience
 
 
 - **Definition of churn:** If a user is not going to order again in the next 365 days right after its first order
@@ -79,4 +79,6 @@ layer start
   - See the README here: https://github.com/layerml/onboarding-project
   - Visit the Kaggle page: https://www.kaggle.com/olistbr/brazilian-ecommerce
 
+
+- **Project Big Picture:**
 ![Project Big Picture](project_big_picture.png "Project Big Picture")
