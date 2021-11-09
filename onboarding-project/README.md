@@ -12,7 +12,7 @@ To build the project:
 layer start
 ```
 
-## Onboarding Project Directory Tree
+## Project Directory Tree
 ```
 .
 ├── .layer
