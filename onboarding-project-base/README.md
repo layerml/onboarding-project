@@ -51,3 +51,30 @@ layer start
 │       └── requirements.txt   
 └── README.md
 ```
+## Project Description
+
+- **General Info:**
+  - Total of 6 source Datasets used
+  - Total of 2 Featuresets are generated
+    - customer_features: It has 3 user features
+    - order_features: It has 5 order features
+
+
+- **Goal:** Fit a model to predict if a customer will churn
+
+
+- **Definition of churn:** If a user is not going to order again in the next 365 days right after its first order
+
+  - Reasoning: Since we have users' data in the OLIST's Kaggle datasets who have ordered at least once before, we formulate the problem accordingly.
+  - Target Variable: CHURNED
+    - if `ordered_again` _[from customer_features]_ is 1, then 0
+    - else then 1
+
+
+- **Feature Descriptions:**
+  - After building this Layer Project, go to the Layer Web UI and see all the feature descriptions in the Data Catalog
+
+
+- **Source Tables Descriptions:**
+  - See the README here: https://github.com/layerml/onboarding-project
+  - Visit the Kaggle page: https://www.kaggle.com/olistbr/brazilian-ecommerce
