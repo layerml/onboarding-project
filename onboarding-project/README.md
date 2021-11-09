@@ -66,7 +66,7 @@ layer start
 - **Definition of the churn customer:** A customer who did not order again in the following 365 days after its first order
 
   - Reasoning: Since we only have customers' data in the OLIST's Kaggle datasets who have ordered at least once before, we formulate the problem accordingly.
-  - Target Variable Name: *CHURNED*
+  - Target Variable Name: 'CHURNED'
     - if `ordered_again` _[from customer_features]_ is 1, then 0
     - else, then 1
 
