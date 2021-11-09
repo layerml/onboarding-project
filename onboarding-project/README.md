@@ -60,7 +60,7 @@ layer start
     - *order_features*: Total of 5 order features are generated
 
 
-- **Goal:** Predict customer churn for the Brazilian e-commerce company-Olist based on first order experience
+- **Goal:** Predict customer churn for the Brazilian e-commerce company-Olist users based on their first order experience
 
 
 - **Definition of churn:** If a user is not going to order again in the next 365 days right after its first order
