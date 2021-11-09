@@ -72,7 +72,7 @@ layer start
 
 
 - **Feature Descriptions:**
-  - After building this Layer Project, go to the Layer Web UI and see all the feature descriptions in the Data Catalog
+  - After building this Layer Project, go to Layer Web UI and see all the feature descriptions in the Data Catalog
 
 
 - **Source Tables Descriptions:**
