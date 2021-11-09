@@ -56,11 +56,11 @@ layer start
 - **General Info:**
   - Total of 6 source Datasets used
   - Total of 2 Featuresets are generated
-    - *customer_features: Total of 3 user features
-    - order_features: Total of 5 order features
+    - *customer_features*: Total of 3 user features are generated
+    - *order_features*: Total of 5 order features are generated
 
 
-- **Goal:** Predict if a customer will churn based on its first order experience
+- **Goal:** Predict customer churn for the Brazilian e-commerce company-Olist based on first order experience
 
 
 - **Definition of churn:** If a user is not going to order again in the next 365 days right after its first order
