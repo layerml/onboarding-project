@@ -78,3 +78,5 @@ layer start
 - **Source Tables Descriptions:**
   - See the README here: https://github.com/layerml/onboarding-project
   - Visit the Kaggle page: https://www.kaggle.com/olistbr/brazilian-ecommerce
+
+![Project Big Picture](project_big_picture.png "Project Big Picture")
