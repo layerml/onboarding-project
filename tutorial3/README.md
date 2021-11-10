@@ -20,20 +20,20 @@ layer start model churn_model
 ## What you will learn in this tutorial?
 
 ### The Case
-> Imagine that you have a baseline model previously trained. 
-> That's the model you deployed on your production before and running at the moment. 
-> After a while, you wanted to revisit this model and try to make some improvement on its performance. 
+Imagine that you have a baseline model previously trained. 
+That's the model you deployed on your production before and running at the moment. 
+After a while, you wanted to revisit this model and try to make some improvement on its performance. 
 
 
-> Here is the list of possible ways you have in mind improving your model:
->- Make use of another featureset as well:
->  >- You have a new featureset now: `order_features_high_level`, since the last time you trained this model.
->  >- Let's try a new set of features which mixes the features from the `order_features` featureset as well as the `order_high_level_features` featureset.
->
->- Make some changes in the model parameters:
->  >- You have been using the Gradient Boosting Classifier from Sklearn for this problem. 
-     You are wondering what if a change in the model parameters will make a positive impact on the model performance.
->  >- You would like to try a different value for the `max_depth` parameter of the model.
+Here is the list of possible ways you have in mind improving your model:
+- Make use of another featureset as well:
+  - You have a new featureset now: `order_features_high_level`, since the last time you trained this model.
+  - Let's try a new set of features which mixes the features from the `order_features` featureset as well as the `order_high_level_features` featureset.
+
+- Make some changes in the model parameters:
+  - You have been using the Gradient Boosting Classifier from Sklearn for this problem. 
+  You are wondering what if a change in the model parameters will make a positive impact on the model performance.
+  - You would like to try a different value for the `max_depth` parameter of the model.
 
 
 
