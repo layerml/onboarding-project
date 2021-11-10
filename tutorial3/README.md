@@ -1,10 +1,10 @@
-# Tutorial II: How to build a new Featureset based on another Featureset
+# Tutorial III: How to build different versions of a model
 
 ## Install and run
 To check out the Tutorial II, run:
 ```commandline
 1. layer clone https://github.com/layerml/onboarding-project.git
-2. cd onboarding-project/tutorial2
+2. cd onboarding-project/tutorial3
 ```
 
 To build the project:
@@ -12,14 +12,28 @@ To build the project:
 layer start
 ```
 
-To build the new featureset after the following steps below:
+To build a new version of the same model after making any change in the model source code:
 ```commandline
-layer start featureset order_features_high_level
+layer start model churn_model
 ```
 
-## Required changes in the project directory
+## What you will learn in this tutorial?
 
-- In this step, you will create the files required for adding a new layer featureset into your existing project.
+### The Case
+> Imagine that you have a baseline model previously trained. 
+> That's the model you deployed on your production before and running at the moment. 
+> After a while, you wanted to revisit this model and try to make some improvement on its performance. 
+
+
+> Here is the list of possible ways you have in mind improving your model:
+>- Make use of another featureset as well:
+>  - You have a new featureset now: `order_features_high_level`, since the last time you trained this model.
+>  - Let's try a new set of features which mixes the features from the `order_features` featureset as well as the `order_high_level_features` featureset.
+>
+>- Make some changes in the model parameters:
+>  - You have been using the Gradient Boosting Classifier from Sklearn for this problem. 
+     You are wondering what if a change in the model parameters will make a positive impact on the model performance.
+>  - You would like to try a different value for the `max_depth` parameter of the model.
 
 
 - First create a new directory for your new featureset:

@@ -40,10 +40,10 @@ def train_model(
     customers_features_filtered.loc[customers_features_filtered['ORDERED_AGAIN'] == 1, 'CHURNED'] = 0 # Change the label to 0 if the customer has ordered again
     customers_labels_df = customers_features_filtered[['CUSTOMER_UNIQUE_ID','FIRST_ORDER_ID','CHURNED']]
 
-    # 3. Final Training Data: Fetch only the first order features of users and the label column
-    # Drop irrelevant id columns and NA rows
+    # 3. Final Training Data: Fetch only the first order features of users and drop excluded and na columns from the final dataframe
+    excluded_cols = ['CUSTOMER_UNIQUE_ID', 'FIRST_ORDER_ID','ORDER_ID','ORDER_PURCHASE_TIMESTAMP','ORDER_STATUS']
     training_data_df = customers_labels_df.merge(order_features, left_on='FIRST_ORDER_ID', right_on='ORDER_ID',how='left')\
-        .drop(columns=['CUSTOMER_UNIQUE_ID', 'FIRST_ORDER_ID','ORDER_ID']) \
+        .drop(columns=excluded_cols) \
         .dropna()
 
     #STEP II: MODEL FITTING
@@ -82,7 +82,7 @@ def train_model(
 
     # 3. Pipeline Steps
     # Pre-processing: One-hot encoding on a categorical variable: MAIN_PRODUCT_CATEGORY
-    categorical_cols = ['MAIN_PRODUCT_CATEGORY']
+    categorical_cols = ['MAIN_PRODUCT_CATEGORY','MAIN_PAYMENT_TYPE','ORDER_CUSTOMER_CITY','ORDER_CUSTOMER_STATE']
     transformer = ColumnTransformer(transformers=[('cat', OneHotEncoder(handle_unknown='ignore'), categorical_cols)],remainder='passthrough')
     # Model: Define a Gradient Boosting Classifier
     model = GradientBoostingClassifier(learning_rate=learning_rate,

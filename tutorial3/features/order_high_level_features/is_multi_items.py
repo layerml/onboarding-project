@@ -3,7 +3,7 @@ from layer import Featureset
 import numpy as np
 
 def build_feature(
-        order_items_features_layer: Featureset("order_features_trial",feature_names=['TOTAL_ITEMS'])
+        order_items_features_layer: Featureset("order_features_trial")
 ) -> Any:
 
     order_items_features_df = order_items_features_layer.to_pandas()

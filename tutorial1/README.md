@@ -1,4 +1,4 @@
-# Tutorial I: How to add new Datasets & Features 
+# Tutorial I: How to add new Datasets into your Layer project & build new Features 
 
 ## Install and run
 To check out the Tutorial I, run:
@@ -32,13 +32,12 @@ layer start featureset order_features
 - In the new directory '/tutorial1/data/reviews_dataset', create a **dataset.yaml** file.
 
 **How newly added files look in the project directory tree**
-```
 .
 ├──tutorial1  
 │   ├── data
 │   │   ├── reviews_dataset
 │   │   │   ├── dataset.yaml
-```
+
 
 > Copy the block below and paste it into the dataset.yaml file
 ```yaml
