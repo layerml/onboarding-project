@@ -27,13 +27,15 @@ layer start model churn_model
 
 > Here is the list of possible ways you have in mind improving your model:
 >- Make use of another featureset as well:
->  - You have a new featureset now: `order_features_high_level`, since the last time you trained this model.
->  - Let's try a new set of features which mixes the features from the `order_features` featureset as well as the `order_high_level_features` featureset.
+>  >- You have a new featureset now: `order_features_high_level`, since the last time you trained this model.
+>  >- Let's try a new set of features which mixes the features from the `order_features` featureset as well as the `order_high_level_features` featureset.
 >
 >- Make some changes in the model parameters:
->  - You have been using the Gradient Boosting Classifier from Sklearn for this problem. 
+>  >- You have been using the Gradient Boosting Classifier from Sklearn for this problem. 
      You are wondering what if a change in the model parameters will make a positive impact on the model performance.
->  - You would like to try a different value for the `max_depth` parameter of the model.
+>  >- You would like to try a different value for the `max_depth` parameter of the model.
+
+
 
 
 - First create a new directory for your new featureset:
