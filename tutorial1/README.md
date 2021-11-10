@@ -32,12 +32,13 @@ layer start featureset order_features
 - In the new directory '/tutorial1/data/reviews_dataset', create a **dataset.yaml** file.
 
 **How newly added files look in the project directory tree**
+```
 .
 ├──tutorial1  
 │   ├── data
 │   │   ├── reviews_dataset
 │   │   │   ├── dataset.yaml
-
+```
 
 > Copy the block below and paste it into the dataset.yaml file
 ```yaml
