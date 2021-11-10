@@ -55,6 +55,4 @@ layer start
 ```
 
 To see the model version 1.1 on Web UI:
-```text
-Go to 'beta.layer.co' and click on the Model Catalog on the left. Find your model name in the catalog and click on its badge. 
-```
+> Go to 'beta.layer.co' and click on the Model Catalog on the left. Find your model name in the catalog and click on its badge. 
