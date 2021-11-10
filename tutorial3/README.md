@@ -19,7 +19,6 @@ layer start model churn_model
 
 ## What you will learn in this tutorial?
 
-### The Case
 Imagine that you have a baseline model previously trained. 
 That's the model you deployed on your production before and running at the moment. 
 After a while, you wanted to revisit this model and try to make some improvement on its performance. 
