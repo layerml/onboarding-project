@@ -1,4 +1,4 @@
-# Tutorial I: How to add new Datasets & Features 
+# Tutorial I: How to add new Datasets into your Layer project & build new Features 
 
 ## Install and run
 To check out the Tutorial I, run:

@@ -19,4 +19,5 @@ def build_feature(
     # Select only the columns to be returned
     days_between_estimate_actual_delivery = orders_df[['ORDER_ID', 'DAYS_BETWEEN_ESTIMATE_ACTUAL_DELIVERY']]
 
+
     return days_between_estimate_actual_delivery

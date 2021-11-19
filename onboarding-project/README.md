@@ -12,7 +12,7 @@ To build the project:
 layer start
 ```
 
-## Project Directory Tree
+## File Structure
 ```
 .
 ├── .layer

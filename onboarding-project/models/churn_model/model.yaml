@@ -8,6 +8,7 @@ apiVersion: 1
 
 # Name and description of our model
 name: "olist_churn_model"
+type: model
 description: "Churn Prediction Model"
 
 training:
