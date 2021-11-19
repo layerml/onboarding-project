@@ -10,7 +10,7 @@ apiVersion: 1
 
 type: featureset
 
-name: "order_high_level_features_trial"
+name: "order_high_level_features"
 description: "High level features about orders based on other order featuresets."
 
 
@@ -29,4 +29,4 @@ features:
       environment: requirements.txt
 
 materialization:
-    target: layer-public-datasets
+    target: olist-ecommerce-datasets

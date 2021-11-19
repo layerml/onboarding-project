@@ -5,7 +5,7 @@ apiVersion: 1
 
 type: featureset
 
-name: "customer_features_trial"
+name: "olist_customer_features"
 description: "This data could be used to predict whether a user will churn depending on its first order experience."
 
 # Name of the predefined fabric config for all features.

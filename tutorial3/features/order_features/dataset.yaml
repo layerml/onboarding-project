@@ -4,7 +4,7 @@ apiVersion: 1
 
 type: featureset
 
-name: "order_features_trial"
+name: "order_features_trial1"
 description: "General features about orders."
 
 # Name of the predefined fabric config for all features.
