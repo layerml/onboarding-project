@@ -1,3 +1,44 @@
+# Tutorial VI: How to use an existing model's outcome as a new input to another model
+
+
+## What you will learn in this tutorial?
+
+Imagine that you have a set of features you previously extracted from your data for a churn model. 
+These are mostly order-related features. One of these features is order review score which is a number 
+between 1 and 5. (1:Least satified - 5:Most satisfied)
+
+You think that this order review score is a quite important and useful data point. However, you realized that you have this order review score for only a small portion of orders. 
+Thus, you wanted to fit an ML model using the order review score as your target variable to predict the review score
+of an order based on its other features.
+
+Since your colleagues have already extracted lots of order features before, you would like to skip 'Feature Engineering' part
+and use some of existing features for your model. In this tutorial, you will see how easy to make use of these existing features to build a new model on Layer
+and shorten project development time drastically.
+
+
+## Step I: Clone the tutorial repo
+To check out the Tutorial V, run:
+```commandline
+1. layer clone https://github.com/layerml/onboarding-project.git
+2. cd onboarding-project/tutorial5
+```
+
+To build the whole project for the first time:
+```commandline
+layer start
+```
+
+
+## Step II: Create a new source file for your new model
+Go to the /models directory and create a new directory under it.
+Name this directory: 'order_review_model'. Under this new directory, there must be 3 separate files:
+- **order_review.py**: python source file for your model
+- **requirements.txt**: A txt file that lists python packages and their respective versions required for your model
+- **order_review.yaml**: A yaml file to define your model on Layer
+
+
+Create a new file _order_review.py_ under the directory _/models/order_review_model/_ 
+```python
 """
 This file demonstrates how we can develop and train our model by using the
 `features` we've developed earlier. In order to build a model, every ML project
@@ -22,9 +63,9 @@ def train_model(
     # Step 1.1 Fetch order features: Convert the Layer featureset to pandas dataframe
     order_features_base = order_features_base.to_pandas().dropna()
     order_features_base_subset = order_features_base[["ORDER_ID","REVIEW_SCORE","ORDER_STATUS","MAIN_PRODUCT_CATEGORY","MAIN_PAYMENT_TYPE","DAYS_BETWEEN_ESTIMATE_ACTUAL_DELIVERY","AVG_PRODUCT_NAME_LENGTH","AVG_PRODUCT_DESCRIPTION_LENGTH","AVG_PRODUCT_PHOTOS_QTY"]]
-    print("HELLO1 ", order_features_base_subset.columns)
+
     order_high_level_features = order_high_level_features.to_pandas().dropna()
-    print("HELLO2 ", order_high_level_features.columns)
+
     order_features_all = order_features_base_subset.merge(order_high_level_features, left_on='ORDER_ID', right_on='ORDER_ID', how='left')
 
 
@@ -99,7 +140,40 @@ def train_model(
     train.log_metric("R2 Score", r2score)
 
     return pipeline
+```
+## Step III: Create a new requirements.txt file for your model
+Create a text file _requirements.txt_ under the directory _/models/order_review_model/_  and copy the content below and paste it into this file
+```commandline
+scikit-learn==1.0
+```
 
+## Step IV: Create a new yaml file for your model
+Create a yaml file _order_review_ under the directory _/models/order_review_model/_  and copy the content below and paste it into this file
+```yaml
+# Layer Onboarding Project
+#
+# Any directory includes an `model.yaml` will be treated as a ml model project.
+# In this `yaml` file, we will define the attributes of our model.
+# For more information on Model Configuration: https://docs.beta.layer.co/docs/modelcatalog/modelyml
 
+apiVersion: 1
 
+# Name and description of our model
+name: "order_review_model"
+description: "Order Review Score Prediction Model"
+type: model
 
+training:
+  name: order_review_training
+  description: "Order Review Score Training"
+
+  # The source model definition file with a `train_model` method
+  entrypoint: model.py
+
+  # File includes the required python libraries with their correct versions
+  environment: requirements.txt
+
+  # Name of the predefined fabric config for model training.
+  # Documentation (https://docs.beta.layer.co/docs/reference/fabrics)
+  fabric: "f-medium"
+```
