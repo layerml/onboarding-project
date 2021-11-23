@@ -4,6 +4,8 @@ This file demonstrates how we can develop and train our model by using the
 should have a model file like this one which implements train_model function.
 """
 from typing import Any
+
+import numpy as np
 from layer import Featureset, Train, Model
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.model_selection import train_test_split
@@ -13,13 +15,13 @@ from sklearn.preprocessing import OneHotEncoder
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 import datetime
+import layer
 
 def train_model(
         train: Train,
         order_features_base: Featureset("order_features_trial"),
         order_high_level_features: Featureset("order_high_level_features_trial2"),
         customer_features: Featureset("customer_features_trial"),
-        order_review_model: Model("order_review_model")
 ) -> Any:
 
     # Step 1: TRAINING DATA GENERATION PROCESS
@@ -34,7 +36,7 @@ def train_model(
     # Step 1.2 Label Generation Process
     # 1.2.1. Fetch customer features: Convert the Layer featureset to pandas dataframe
     customer_features = customer_features.to_pandas()
-    print("HELLO4 ", len(customer_features))
+
     # 1.2.2. Filter the users who did not order again by using a time period of at least 365 days after their first purchases (comparing with the max date in the data --> "2018-10-17")
     order_silence_period = 365
     dataset_max_date = datetime.date(2018, 10, 17)
@@ -55,17 +57,19 @@ def train_model(
         .dropna()
 
     # 4. Use another model: order_review_score to add a new input (feature): predicted_order_review_scores
+    # 4.1 Select the subset of input feature column names for the order_review_score model
     feature_columns_names = ['ORDER_STATUS', 'MAIN_PRODUCT_CATEGORY', 'MAIN_PAYMENT_TYPE',
                              'DAYS_BETWEEN_ESTIMATE_ACTUAL_DELIVERY','AVG_PRODUCT_NAME_LENGTH',
                              'AVG_PRODUCT_DESCRIPTION_LENGTH', 'AVG_PRODUCT_PHOTOS_QTY',
                              'IS_MULTI_ITEMS', 'SHIPPING_PAYMENT_PERC', 'TOTAL_WAITING']
 
     training_data_for_review_score_model = training_data_df[feature_columns_names]
-
-    order_review_model = order_review_model.trained_model_object
+    # 4.2 Fetch the order_review_score model
+    order_review_model = layer.get_model("order_review_model").trained_model_object
+    # 4.3 Make inferences by using the model
     predicted_order_review_scores = order_review_model.predict(training_data_for_review_score_model)
-
-    training_data_df.assign(PREDICTED_ORDER_REVIEW_SCORE=predicted_order_review_scores)
+    # 4.4 Append the predicted column back to the training dataframe
+    training_data_df['PREDICTED_ORDER_REVIEW_SCORE']=predicted_order_review_scores
 
     #STEP II: MODEL FITTING
     # 1. Define all paramaters
@@ -103,7 +107,7 @@ def train_model(
 
     # 3. Pipeline Steps
     # Pre-processing: One-hot encoding on a categorical variable: MAIN_PRODUCT_CATEGORY
-    categorical_cols = ['MAIN_PRODUCT_CATEGORY','MAIN_PAYMENT_TYPE','ORDER_CUSTOMER_CITY','ORDER_CUSTOMER_STATE']
+    categorical_cols = ['MAIN_PRODUCT_CATEGORY','MAIN_PAYMENT_TYPE','ORDER_CUSTOMER_CITY','ORDER_CUSTOMER_STATE','ORDER_STATUS']
     transformer = ColumnTransformer(transformers=[('cat', OneHotEncoder(handle_unknown='ignore'), categorical_cols)],remainder='passthrough')
     # Model: Define a Gradient Boosting Classifier
     model = GradientBoostingClassifier(learning_rate=learning_rate,
