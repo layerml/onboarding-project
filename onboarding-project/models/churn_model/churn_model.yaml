@@ -5,18 +5,18 @@
 # For more information on Model Configuration: https://docs.beta.layer.co/docs/modelcatalog/modelyml
 
 apiVersion: 1
-
-# Name and description of our model
-name: "olist_churn_model"
 type: model
-description: "Churn Prediction Model"
+
+# Unique name and description of our model
+name: "churn_model"
+description: "Churn Prediction Model for OLIST E-Commerce Company"
 
 training:
   name: churn_model_training
   description: "Churn Prediction Model Training"
 
   # The source model definition file with a `train_model` method
-  entrypoint: model.py
+  entrypoint: churn_model.py
 
   # File includes the required python libraries with their correct versions
   environment: requirements.txt

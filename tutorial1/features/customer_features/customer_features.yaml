@@ -2,10 +2,10 @@
 # For more information on Featureset Configuration: https://docs.beta.layer.co/docs/datacatalog/featuresets
 
 apiVersion: 1
-
 type: featureset
 
-name: "olist_customer_features"
+# Unique name for the featureset which will be used in this project to refer to this featureset
+name: "customer_features_tutorial1"
 description: "This data could be used to predict whether a user will churn depending on its first order experience."
 
 # Name of the predefined fabric config for all features.
@@ -20,10 +20,12 @@ features:
       1: There is at least one order placed by the customer after the first purchase"
       source: ordered_again.py
       environment: requirements.txt
+
     - name: first_order_id
       description: "ID for the first order of the customer."
       source: first_order_id.py
       environment: requirements.txt
+
     - name: first_order_timestamp
       description: "Timestamp for the first order of the customer."
       source: first_order_timestamp.py
