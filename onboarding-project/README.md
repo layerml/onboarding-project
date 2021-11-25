@@ -17,38 +17,32 @@ layer start
 .
 ├── .layer
 ├── data
-│   ├── category_name_translation_dataset  
-│   │   ├── dataset.yaml         
-│   ├── customers_dataset  
-│   │   ├── dataset.yaml
-│   ├── items_dataset  
-│   │   ├── dataset.yaml
-│   ├── orders_dataset  
-│   │   ├── dataset.yaml
-│   ├── payments_dataset  
-│   │   ├── dataset.yaml
-│   ├── products_dataset  
-│   │   ├── dataset.yaml
+│   ├── category_name_translation_dataset.yaml         
+│   ├── customers_dataset.yaml
+│   ├── items_dataset.yaml
+│   ├── orders_dataset.yaml
+│   ├── payments_dataset.yaml
+│   ├── products_dataset.yaml
 ├── features
 │   ├── customer_features
 │   │   ├── first_order_id.py  
 │   │   ├── first_order_timestamp.py
 │   │   ├── ordered_again.py
-│   │   ├── dataset.yaml
-│   │   ├── requirements.txt         
+│   │   ├── requirements.txt
+│   │   ├── customer_features.yaml         
 │   ├── order_features 
 │   │   ├── days_between_delivery_and_purchase.py  
 │   │   ├── days_between_estimate_actual_delivery.py
 │   │   ├── main_product_category.py
 │   │   ├── total_freight.py
 │   │   ├── total_payment.py
-│   │   ├── dataset.yaml
-│   │   ├── requirements.txt  
+│   │   ├── requirements.txt
+│   │   ├── order_features.yaml  
 ├── models
 │   └── churn_model
-│       ├── model.py              
-│       ├── model.yaml                
-│       └── requirements.txt   
+│       ├── churn_model.py                              
+│       └── requirements.txt
+│       ├── churn_model.yaml   
 └── README.md
 ```
 ## Project Description

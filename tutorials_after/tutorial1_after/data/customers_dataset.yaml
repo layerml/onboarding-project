@@ -1,11 +1,10 @@
 # For more information on Dataset Configuration: https://docs.beta.layer.co/docs/datacatalog/datasets
 
 apiVersion: 1
+type: dataset
 
-# Unique name of this dataset which will be used in this project to
-# refer to this dataset
+# Unique name of this dataset which will be used in this project to refer to this dataset
 name: "customers_dataset"
-type: source
 description: "This dataset has information about the customer and its location. Use it to identify unique customers in the orders dataset and to find the orders delivery location."
 
 materialization:
