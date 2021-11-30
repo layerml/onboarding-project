@@ -3,8 +3,8 @@
 ## Install and run
 To check out the Tutorial I, run:
 ```commandline
-1. layer clone https://github.com/layerml/onboarding-project.git
-2. cd onboarding-project/onboarding-project-base
+1. layer clone https://github.com/layerml/onboarding-project-and-tutorials.git
+2. cd onboarding-project-and-tutorials/onboarding-project
 ```
 
 To build the project:
