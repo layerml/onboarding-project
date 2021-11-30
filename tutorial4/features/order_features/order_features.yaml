@@ -1,0 +1,139 @@
+# For more information on Featureset Configuration: https://docs.beta.layer.co/docs/datacatalog/featuresets
+
+apiVersion: 1
+type: featureset
+
+# Unique name for the featureset which will be used in this project to refer to this featureset
+name: "order_features_tutorial4"
+description: "General features about orders."
+
+# Name of the predefined fabric config for all features.
+# Documentation (https://docs.beta.layer.co/docs/reference/fabrics)
+fabric: "f-medium"
+
+
+features:
+    - name: review_score
+      description: "Review rating of the order between 1 and 5."
+      source: review_score.py
+      environment: requirements.txt
+
+    - name: total_items
+      description: "Total number of items bought in the order."
+      source: total_items.py
+      environment: requirements.txt
+
+    - name: avg_product_description_length
+      description: "An order might be consisted of several products. This is average description length of all products in the order.
+      If the order has only one product, then the value of this columns is that product's description length."
+      source: avg_product_description_length.py
+      environment: requirements.txt
+
+    - name: avg_product_name_length
+      description: "An order might be consisted of several products. This is average name length of all products in the order.
+      If the order has only one product, then the value of this columns is that product's name length."
+      source: avg_product_name_length.py
+      environment: requirements.txt
+
+    - name: avg_product_photos_qty
+      description: "An order might be consisted of several products. This is average number of photos of all products in the order.
+      If the order has only one product, then the value of this columns is that product's number of photos."
+      source: avg_product_photos_qty.py
+      environment: requirements.txt
+
+    - name: total_product_price
+      description: "Total price paid for products only (Not including freight)."
+      source: total_product_price.py
+      environment: requirements.txt
+
+    - name: total_different_sellers
+      description: "Total number of different sellers in an order. An order might be consisted of several items sold by different sellers.
+      If an order has only one item, then the value of column is 1."
+      source: total_different_sellers.py
+      environment: requirements.txt
+
+    - name: total_distinct_items
+      description: "An order might be consisted of several different items and multiple of the same item. This is total number of distinct items in the order."
+      source: total_distinct_items.py
+      environment: requirements.txt
+
+    - name: use_voucher
+      description: "If any voucher is used in the order payment. Values: 1 or 0"
+      source: use_voucher.py
+      environment: requirements.txt
+
+    - name: order_customer_city
+      description: "City of customer the order is placed by. Categorical Values: [sao paulo, rio de janeiro, belo horizonte, brasilia, curitiba, campinas, porto alegre, salvador, guarulhos, other]"
+      source: order_customer_city.py
+      environment: requirements.txt
+
+    - name: order_customer_state
+      description: "State of customer the order is placed by. Categorical Values: [SP, RJ, MG, RS, PR, SC, BA, DF, ES, GO, other]"
+      source: order_customer_state.py
+      environment: requirements.txt
+
+    - name: main_payment_type
+      description: "An order could be paid by a bunch different payment types.
+      This is the payment type of an order that the biggest portion of the payment value is paid.
+      If an order is paid by a single payment type, then that's also the main payment type."
+      source: main_payment_type.py
+      environment: requirements.txt
+
+    - name: number_of_distinct_payment_types
+      description: "Total number of different payment types used by customer for the order."
+      source: number_of_distinct_payment_types.py
+      environment: requirements.txt
+
+    - name: number_of_total_installments
+      description: "Total number of installments in the order payment. Only non-voucher transactions are counted. If an order is paid by using only vouchers, then total installments is 1."
+      source: number_of_total_installments.py
+      environment: requirements.txt
+
+    - name: payment_approvement_waiting
+      description: "Days between order purchase date and order approvement date."
+      source: payment_approvement_waiting.py
+      environment: requirements.txt
+
+    - name: delivered_carrier_waiting
+      description: "Days between the order approvement date and the order posting date on which logistic partner picks up the item."
+      source: delivered_carrier_waiting.py
+      environment: requirements.txt
+
+    - name: order_timestamp
+      description: "Timestamp at which order is placed."
+      source: order_timestamp.py
+      environment: requirements.txt
+
+    - name: status
+      description: "Status of the order. Categorical Values: [delivered, shipped, canceled, unavailable, invoiced, processing, created, approved]"
+      source: status.py
+      environment: requirements.txt
+
+    - name: days_between_delivery_and_purchase
+      description: "Days between the purchase date and actual delivery date."
+      source: days_between_delivery_and_purchase.py
+      environment: requirements.txt
+
+    - name: days_between_estimate_actual_delivery
+      description: "Days between actual delivery date and estimate delivery date on which the customer was promised to get the item."
+      source: days_between_estimate_actual_delivery.py
+      environment: requirements.txt
+
+    - name: total_payment
+      description: "Total value of payments for the order."
+      source: total_payment.py
+      environment: requirements.txt
+
+    - name: total_freight_price
+      description: "Total price for freight of the order. Each item in an order could have different cost for freight"
+      source: total_freight_price.py
+      environment: requirements.txt
+
+    - name: main_product_category
+      description: "Main category of the order. Categorical Values: [bed_bath_table, sports_leisure, health_beauty,computers_accessories,furniture_decor,housewares,watches_gifts,telephony,auto,toys,other]"
+      source: main_product_category.py
+      environment: requirements.txt
+   
+
+materialization:
+    target: layer-public-datasets

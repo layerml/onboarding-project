@@ -12,7 +12,7 @@ name: "churn_model"
 description: "Churn Prediction Model for OLIST E-Commerce Company"
 
 training:
-  name: churn_model_training
+  name: "churn_model_training"
   description: "Churn Prediction Model Training"
 
   # The source model definition file with a `train_model` method
@@ -23,4 +23,4 @@ training:
 
   # Name of the predefined fabric config for model training.
   # Documentation (https://docs.beta.layer.co/docs/reference/fabrics)
-  fabric: "f-small"
+  fabric: "f-medium"

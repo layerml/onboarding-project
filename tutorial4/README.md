@@ -9,13 +9,13 @@ After a while, you wanted to revisit this model and try to make some improvement
 
 
 Here is the list of possible ways you have in mind improving your model:
-- Model parameter change: Make a change in the model parameters without any changes on the features
+- **Parameter change**: Make a change in the model parameters without any changes on the features
   - You have been using the Gradient Boosting Classifier from Sklearn for this problem. 
   You are wondering what if a change in the model parameters will make a positive impact on the model performance.
   - You would like to try a different value for the `max_depth` parameter of the model.
   
 
-- Model data change: Make use of another featureset without any changes on the model parameters
+- **Data change**: Make use of another featureset without any changes on the model parameters
   - You have a new featureset now: `order_features_high_level`, since the last time you trained this model.
   - Let's try a new set of features which mixes the features from the `order_features` as well as the `order_high_level_features` featuresets.
 
@@ -23,18 +23,19 @@ Here is the list of possible ways you have in mind improving your model:
 
 Total of 3 combinations you will try on your model. 
 In other words, you will have 3 different versions of the model to compare their performances.
-- _Version 1.1 (Baseline)_: Only use the `order_features` featureset & `max_depth=6`
+- _Version 1.1 (Baseline)_: Only use the `order_features_tutorial4` featureset & `max_depth=6`
 - _Version 2.1 (Change in model parameter)_: Change the default value of model parameter: `max_depth=10`
-- _Version 3.1 (Change in model features)_: Use a mixed set of features from both `order_features` and `order_features_high_level` featureset. [Keep the paramater `max_depth=10` the same]
+- _Version 3.1 (Change in model features)_: Use a mixed set of features from both `order_features_tutorial4` and `order_features_tutorial4_new` featureset. [Keep the paramater `max_depth=10` the same]
 
 
-## Step I: Train the model version 1.1 [Baseline]
-To check out the Tutorial III, run:
+## Step I: Clone the tutorial repo
+To check out the Tutorial IV, run:
 ```commandline
-1. layer clone https://github.com/layerml/onboarding-project.git
-2. cd onboarding-project/tutorial3
+1. layer clone https://github.com/layerml/onboarding-project-and-tutorials.git
+2. cd onboarding-project-and-tutorials/tutorial4
 ```
 
+## Step II: Train the model version 1.1 [Baseline]
 To build the whole project for the first time:
 ```commandline
 layer start
@@ -43,7 +44,7 @@ layer start
 To see the model version 1.1 on Web UI:
 > Click on the model link on the CLI
 
-## Step II: Train the model version 2.1 [Change in model parameters]
+## Step III: Train the model version 2.1 [Change in model parameters]
 Go and find the parameter `max_depth = 6` in the model.py source file and change its value:
 ```commandline
 max_depth = 10
@@ -58,7 +59,7 @@ layer start model churn_model
 To see the model version 2.1 on Web UI:
 > Click on the model link on the CLI 
 
-## Step III: Train the model version 3.1 [Change in model features]
+## Step IV: Train the model version 3.1 [Change in model features]
 To fetch the new featureset, change function signature of the `train_model` in the **/models/churn_model/model.py** file
 ```python
 def train_model(
@@ -89,3 +90,10 @@ layer start model churn_model
 
 To see the model version 3.1 on Web UI:
 > Click on the model link on the CLI 
+
+Congratulations, you have just completed the tutorial. Now, you know how to build different versions of the same ML model and compare them on Layer.
+
+To check if you are done correct, go and check the Tutorial 3's after project:
+```commandline
+cd onboarding-project-and-tutorials/tutorials_after/tutorial4_after
+```

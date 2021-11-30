@@ -3,42 +3,31 @@
 
 ## What you will learn in this tutorial?
 
-Imagine that you have done enough on feature engineering 
+Imagine that you have done enough on feature engineering part 
 and ready to train your first baseline model using your Layer featuresets.
 
-Having your very first model takes only 4 simple steps:
-  - Step 1: Build the Layer Dataset and Featureset entities
-  - Step 2: Create files in your project file structure
-    - python source file (.py)
-    - requirements.txt
-    - model.yaml
-  - Step 3: Fill in those files with some relevant contents by following the tutorial steps below
-  - Step 4: Build your model
+In this tutorial, you will learn:
+- How to fetch featuresets in the `train_model` function signature: `order_features_tutorial3` & `customer_features_tutorial3`
+- How to log model parameters on Layer using `train.log_parameters`
+- How to log model metrics on Layer using `train.log_metric`
 
-## Step 1: Build the existing Layer Datasets and Featuresets
+## Step I: Clone the tutorial repo
+To check out the Tutorial III, run:
+```commandline
+1. layer clone https://github.com/layerml/onboarding-project-and-tutorials.git
+2. cd onboarding-project-and-tutorials/tutorial3
+```
+
+To build the featuresets, run:
 ```commandline
 layer start
 ```
 
-## Step 2: Create files in your project file structure
-### Step 2.1: Create the python source file
-```commandline
-/tutorial3/models/churn_model/model.py
-```
+## Step II: Create files in the project file structure
 
-### Step 2.2: Create the requirements.txt file
-```commandline
-/tutorial3/models/churn_model/requirements.txt
-```
+**Create model source file: churn_model.py**
 
-### Step 2.3: Create the model.yaml file
-```commandline
-/tutorial3/models/churn_model/model.yaml
-```
-
-
-## Step 3: Copy and Paste the contents below into the respective files
-### Step 3.1: Copy the code block below and paste it into the file: */tutorial3/models/churn_model/model.py*
+Copy the code block below and paste it into the churn_model.py file
 ```python
 """
 This file demonstrates how we can develop and train our model by using the
@@ -58,34 +47,34 @@ import datetime
 
 def train_model(
         train: Train,
-        order_features: Featureset("olist_order_features"),
-        customer_features: Featureset("olist_customer_features")
+        order_features_base: Featureset("order_features_tutorial3"),
+        customer_features: Featureset("customer_features_tutorial3")
 ) -> Any:
 
-    # STEP I: TRAINING DATA GENERATION PROCESS
-    # 1. Fetch order features: Convert the Layer featureset to pandas dataframe
-    order_features = order_features.to_pandas()
+    # Step 1: TRAINING DATA GENERATION PROCESS
+    # Step 1.1 Fetch order features: Convert the Layer featureset to pandas dataframe
+    order_features_base = order_features_base.to_pandas().dropna()
 
-    # 2. Label Generation Process
-    # 2.1. Fetch customer features: Convert the Layer featureset to pandas dataframe
-    customer_features = customer_features.to_pandas()
-    # 2.2. Filter the users who did not order again by using a time period of at least 365 days after their first purchases (comparing with the max date in the data --> "2018-10-17")
+    # Step 1.2 Label Generation Process
+    # 1.2.1. Fetch customer features: Convert the Layer featureset to pandas dataframe
+    customer_features = customer_features.to_pandas().dropna()
+    # 1.2.2. Filter the users who did not order again by using a time period of at least 365 days after their first purchases (comparing with the max date in the data --> "2018-10-17")
     order_silence_period = 365
     dataset_max_date = datetime.date(2018, 10, 17)
     customer_not_ordered_again = customer_features[(customer_features.ORDERED_AGAIN == 0) & (customer_features.FIRST_ORDER_TIMESTAMP.dt.date + datetime.timedelta(days=order_silence_period) < dataset_max_date)]
-    # 2.3. Use all the users who ordered again
+    # 1.2.3. Use all the users who ordered again
     customer_ordered_again = customer_features.loc[(customer_features.ORDERED_AGAIN == 1)]
-    # 2.4. Merge 2 data frames and add a new label column: CHURNED
+    # 1.2.4. Merge 2 data frames and add a new label column: CHURNED
     # <<Definition of Churn>>: A user who has not ordered again at least in the next 365 days after its first purchase.
     customers_features_filtered = pd.concat([customer_not_ordered_again, customer_ordered_again])
     customers_features_filtered['CHURNED'] = 1 # Create a label column 'churned' with all 1s.
     customers_features_filtered.loc[customers_features_filtered['ORDERED_AGAIN'] == 1, 'CHURNED'] = 0 # Change the label to 0 if the customer has ordered again
     customers_labels_df = customers_features_filtered[['CUSTOMER_UNIQUE_ID','FIRST_ORDER_ID','CHURNED']]
 
-    # 3. Final Training Data: Fetch only the first order features of users and the label column
-    # Drop irrelevant id columns and NA rows
-    training_data_df = customers_labels_df.merge(order_features, left_on='FIRST_ORDER_ID', right_on='ORDER_ID',how='left')\
-        .drop(columns=['CUSTOMER_UNIQUE_ID', 'FIRST_ORDER_ID','ORDER_ID']) \
+    # 3. Final Training Data: Fetch only the first order features of users and drop excluded and na columns from the final dataframe
+    excluded_cols = ['CUSTOMER_UNIQUE_ID', 'FIRST_ORDER_ID','ORDER_ID','ORDER_PURCHASE_TIMESTAMP','ORDER_STATUS']
+    training_data_df = customers_labels_df.merge(order_features_base, left_on='FIRST_ORDER_ID', right_on='ORDER_ID',how='left')\
+        .drop(columns=excluded_cols) \
         .dropna()
 
     #STEP II: MODEL FITTING
@@ -124,7 +113,7 @@ def train_model(
 
     # 3. Pipeline Steps
     # Pre-processing: One-hot encoding on a categorical variable: MAIN_PRODUCT_CATEGORY
-    categorical_cols = ['MAIN_PRODUCT_CATEGORY']
+    categorical_cols = ['MAIN_PRODUCT_CATEGORY','MAIN_PAYMENT_TYPE','ORDER_CUSTOMER_CITY','ORDER_CUSTOMER_STATE']
     transformer = ColumnTransformer(transformers=[('cat', OneHotEncoder(handle_unknown='ignore'), categorical_cols)],remainder='passthrough')
     # Model: Define a Gradient Boosting Classifier
     model = GradientBoostingClassifier(learning_rate=learning_rate,
@@ -153,12 +142,17 @@ def train_model(
     return pipeline
 ```
 
-### Step 3.2: Copy the block below and paste it into the file: */tutorial3/models/churn_model/requirements.txt*
+**Create requirements.txt**
+
+Copy the block below and paste it into the requirements.txt file
+
 ```text
 scikit-learn==1.0
 ```
 
-### Step 3.3: Copy the block below and paste it into the file: */tutorial3/models/churn_model/model.yaml*
+**Create model's yaml file**
+
+Copy the block below and paste it into the churn_model.yaml file
 ```yaml
 # Layer Onboarding Project
 #
@@ -167,13 +161,14 @@ scikit-learn==1.0
 # For more information on Model Configuration: https://docs.beta.layer.co/docs/modelcatalog/modelyml
 
 apiVersion: 1
+type: model
 
 # Name and description of our model
-name: "olist_churn_model"
+name: "churn_model_tutorial3"
 description: "Churn Prediction Model"
 
 training:
-  name: churn_model_training
+  name: churn_model_training_trial
   description: "Churn Prediction Model Training"
 
   # The source model definition file with a `train_model` method
@@ -184,12 +179,19 @@ training:
 
   # Name of the predefined fabric config for model training.
   # Documentation (https://docs.beta.layer.co/docs/reference/fabrics)
-  fabric: "f-small"
+  fabric: "f-medium"
 ```
 
-### Step 4: Build your baseline model for the first time
+### Step III: Build your baseline model for the first time
 ```commandline
-layer start model olist_churn_model
+layer start model churn_model_tutorial3
+```
+
+Congratulations, you have just completed the tutorial. Now, you know how to build your first baseline ML model using existing Featuresets you generated before. 
+
+To check if you are done correct, go and check the Tutorial 3's after project:
+```commandline
+cd onboarding-project-and-tutorials/tutorials_after/tutorial3_after
 ```
 
 

@@ -5,12 +5,12 @@ apiVersion: 1
 type: featureset
 
 # Unique name for the featureset which will be used in this project to refer to this featureset
-name: "olist_customer_features"
+name: "customer_features_tutorial1"
 description: "This data could be used to predict whether a user will churn depending on its first order experience."
 
 # Name of the predefined fabric config for all features.
 # Documentation (https://docs.beta.layer.co/docs/reference/fabrics)
-fabric: "f-small"
+fabric: "f-medium"
 
 
 features:

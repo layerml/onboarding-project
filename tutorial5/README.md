@@ -12,7 +12,9 @@ Thus, you wanted to fit an ML model using the order review score as your target 
 of an order based on its other features.
 
 Since your colleagues have already extracted lots of order features before, you would like to skip 'Feature Engineering' part
-and use some of existing features for your model. In this tutorial, you will see how easy to make use of these existing features to build a new model on Layer
+and use some of existing features for your model. 
+
+In this tutorial, you will see how easy to make use of these existing features to build a new model on Layer
 and shorten project development time drastically.
 
 

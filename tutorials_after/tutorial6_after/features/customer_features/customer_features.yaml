@@ -1,0 +1,35 @@
+# A featureset is a group of calculated features that provide a high-level interface to access individual features.
+# For more information on Featureset Configuration: https://docs.beta.layer.co/docs/datacatalog/featuresets
+
+apiVersion: 1
+type: featureset
+
+# Unique name of this featureset which will be used in this project to refer to this featureset
+name: "customer_features_tutorial6"
+description: "This data could be used to predict whether a user will churn depending on its first order experience."
+
+# Name of the predefined fabric config for all features.
+# Documentation (https://docs.beta.layer.co/docs/reference/fabrics)
+fabric: "f-medium"
+
+
+features:
+    - name: ordered_again
+      description: "A flag that shows whether the customer has ordered again after its first purchase.
+      0: There is no other order placed by the customer after the first purchase
+      1: There is at least one order placed by the customer after the first purchase"
+      source: ordered_again.py
+      environment: requirements.txt
+
+    - name: first_order_id
+      description: "ID for the first order of the customer."
+      source: first_order_id.py
+      environment: requirements.txt
+
+    - name: first_order_timestamp
+      description: "Timestamp for the first order of the customer."
+      source: first_order_timestamp.py
+      environment: requirements.txt
+
+materialization:
+    target: layer-public-datasets
