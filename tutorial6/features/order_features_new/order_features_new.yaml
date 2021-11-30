@@ -1,0 +1,33 @@
+# New Project Example
+#
+# Any directory includes an `orders.yaml will be treated as a orders
+# project. In this `yaml` file, we will define the attributes of our
+# featureset.
+
+# For more information on Featureset Configuration: https://docs.beta.layer.co/docs/datacatalog/featuresets
+
+apiVersion: 1
+type: featureset
+
+name: "order_features_tutorial6_new"
+description: "High level features about orders based on other order featuresets."
+
+
+features:
+    - name: is_multi_items
+      description: "A binary columns that indicates if the order has multiple items (1) or not (0)."
+      source: is_multi_items.py
+      environment: requirements.txt
+
+    - name: shipping_payment_perc
+      description: "Percentage of the shipping cost over total payment."
+      source: shipping_payment_perc.py
+      environment: requirements.txt
+
+    - name: total_waiting
+      description: "Total number of days the customer had to wait for payment approvement and carrier to pick up the items of the order."
+      source: total_waiting.py
+      environment: requirements.txt
+
+materialization:
+    target: layer-public-datasets

@@ -14,8 +14,8 @@ At the end of this tutorial, you will learn how to define a source table on your
 ## Step I: Fetch the repo
 To check out the Tutorial I's base project, run:
 ```commandline
-1. layer clone https://github.com/layerml/onboarding-project.git
-2. cd onboarding-project/tutorial1
+1. layer clone https://github.com/layerml/onboarding-project-and-tutorials.git
+2. cd onboarding-project-and-tutorials/tutorial1
 ```
 To build the whole project:
 ```commandline
@@ -39,10 +39,10 @@ layer start
 # For more information on Dataset Configuration: https://docs.beta.layer.co/docs/datacatalog/datasets
 
 apiVersion: 1
+type: dataset
 
 # Unique name of this dataset which will be used in this project to refer to this dataset
 name: "reviews_dataset"
-type: dataset
 description: "This dataset includes data about the order reviews."
 
 materialization:
@@ -135,3 +135,8 @@ def build_feature(items_layer_df: Dataset("items_dataset")) -> Any:
   environment: requirements.txt
 ```
 > That's it, you are done. Congratulations! You just learned how to define a source table as a Layer Dataset entity and how to add new features into your existing Layer Featureset.
+
+To check if you are done correct, go and check the Tutorial 1's after project:
+```commandline
+cd onboarding-project-and-tutorials/tutorials_after/tutorial1_after
+```

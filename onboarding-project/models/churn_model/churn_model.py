@@ -16,8 +16,8 @@ import datetime
 
 def train_model(
         train: Train,
-        order_features: Featureset("olist_order_features"),
-        customer_features: Featureset("olist_customer_features")
+        order_features: Featureset("order_features_onboarding"),
+        customer_features: Featureset("customer_features_onboarding")
 ) -> Any:
 
     # STEP I: TRAINING DATA GENERATION PROCESS
