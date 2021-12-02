@@ -7,7 +7,7 @@ Imagine that you have done enough on feature engineering part
 and ready to train your first baseline model using your Layer featuresets.
 
 In this tutorial, you will learn:
-- How to fetch featuresets in the `train_model` function signature: `order_features_tutorial3` & `customer_features_tutorial3`
+- How to fetch existing featuresets in the `train_model`s function signature: `order_features_tutorial3` & `customer_features_tutorial3`
 - How to log model parameters on Layer using `train.log_parameters`
 - How to log model metrics on Layer using `train.log_metric`
 
@@ -18,12 +18,14 @@ To check out the Tutorial III, run:
 2. cd onboarding-project-and-tutorials/tutorial3
 ```
 
-To build the featuresets, run:
+To build existing Layer entities in this tutorial for the first time, run:
 ```commandline
 layer start
 ```
 
 ## Step II: Create files in the project file structure
+
+> Create the files below one by one under the directory `tutorial3/models/churn_model/`
 
 **Create model source file: churn_model.py**
 
@@ -142,7 +144,7 @@ def train_model(
     return pipeline
 ```
 
-**Create requirements.txt**
+**Create requirements.txt file**
 
 Copy the block below and paste it into the requirements.txt file
 
@@ -150,12 +152,10 @@ Copy the block below and paste it into the requirements.txt file
 scikit-learn==1.0
 ```
 
-**Create model's yaml file**
+**Create model's yaml file: churn_model.yaml**
 
 Copy the block below and paste it into the churn_model.yaml file
 ```yaml
-# Layer Onboarding Project
-#
 # Any directory includes an `model.yaml` will be treated as a ml model project.
 # In this `yaml` file, we will define the attributes of our model.
 # For more information on Model Configuration: https://docs.beta.layer.co/docs/modelcatalog/modelyml
@@ -172,7 +172,7 @@ training:
   description: "Churn Prediction Model Training"
 
   # The source model definition file with a `train_model` method
-  entrypoint: model.py
+  entrypoint: churn_model.py
 
   # File includes the required python libraries with their correct versions
   environment: requirements.txt

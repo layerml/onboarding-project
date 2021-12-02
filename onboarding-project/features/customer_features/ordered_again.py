@@ -29,6 +29,6 @@ def build_feature(
     users_df['ORDERED_AGAIN'] = np.where(users_df['TOTAL_ORDERS'] > 1, 1, 0)
 
     # Select only the columns to be returned
-    ordered_again = users_df[['CUSTOMER_UNIQUE_ID', 'ORDERED_AGAIN']]
+    ordered_again = users_df[['CUSTOMER_UNIQUE_ID', 'ORDERED_AGAIN','TOTAL_ORDERS']]
 
     return ordered_again

@@ -31,14 +31,14 @@
 │   │   │   ├── order_features_new.yaml
 ```
 
-## Step I: Fetch the repo
+## Step I: Clone the repo
 To check out the Tutorial II's base project, run:
 ```commandline
 1. layer clone https://github.com/layerml/onboarding-project-and-tutorials.git
-2. cd onboarding-project/onboarding-project-and-tutorials
+2. cd onboarding-project-and-tutorials/tutorial2
 ```
 
-To build the whole project, run:
+To build existing Layer entities in this tutorial for the first time, run:
 ```commandline
 layer start
 ```
@@ -112,7 +112,7 @@ type: featureset
 
 # Unique name for the featureset which will be used in this project to refer to this featureset
 name: "order_features_tutorial2_new"
-description: "Higher level features about orders based on other order featureset: order_features"
+description: "High level features about orders based on other order featuresets."
 
 
 features:
@@ -120,19 +120,19 @@ features:
       description: "A binary columns that indicates if the order has multiple items (1) or not (0)."
       source: is_multi_items.py
       environment: requirements.txt
-      
+
     - name: shipping_payment_perc
       description: "Percentage of the shipping cost over total payment."
       source: shipping_payment_perc.py
       environment: requirements.txt
-      
+
     - name: total_waiting
       description: "Total number of days the customer had to wait for payment approvement and carrier to pick up the items of the order."
       source: total_waiting.py
       environment: requirements.txt
 
 materialization:
-    target: olist-ecommerce-datasets
+    target: layer-public-datasets
 ```
 ## Step IV: Build the new features
 > To build the new featureset, run:

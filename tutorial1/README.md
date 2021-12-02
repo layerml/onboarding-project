@@ -11,13 +11,13 @@ You would like to define that table as a Layer dataset to be able to extract som
 At the end of this tutorial, you will learn how to define a source table on your warehouse as a new Layer Dataset and add brand-new features into your existing Layer Featureset.
 
 
-## Step I: Fetch the repo
+## Step I: Clone the repo
 To check out the Tutorial I's base project, run:
 ```commandline
 1. layer clone https://github.com/layerml/onboarding-project-and-tutorials.git
 2. cd onboarding-project-and-tutorials/tutorial1
 ```
-To build the whole project:
+To build existing Layer entities in this tutorial for the first time, run:
 ```commandline
 layer start
 ```

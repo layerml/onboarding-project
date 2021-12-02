@@ -17,7 +17,7 @@ training:
   description: "Order Review Score Training"
 
   # The source model definition file with a `train_model` method
-  entrypoint: model.py
+  entrypoint: order_review_model.py
 
   # File includes the required python libraries with their correct versions
   environment: requirements.txt

@@ -1,5 +1,3 @@
-# Layer Onboarding Project
-#
 # Any directory includes an `model.yaml` will be treated as a ml model project.
 # In this `yaml` file, we will define the attributes of our model.
 # For more information on Model Configuration: https://docs.beta.layer.co/docs/modelcatalog/modelyml

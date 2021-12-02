@@ -1,4 +1,4 @@
-# Tutorial V: How to build a different model by making use of the same sef of features
+# Tutorial V: How to build a different ML model by reusing of existing features
 
 
 ## What you will learn in this tutorial?
@@ -21,11 +21,11 @@ and shorten project development time drastically.
 ## Step I: Clone the tutorial repo
 To check out the Tutorial V, run:
 ```commandline
-1. layer clone https://github.com/layerml/onboarding-project.git
-2. cd onboarding-project/tutorial5
+1. layer clone https://github.com/layerml/onboarding-project-and-tutorials.git
+2. cd onboarding-project-and-tutorials/tutorial5
 ```
 
-To build the whole project for the first time:
+To build existing Layer entities of the Churn Project for the first time:
 ```commandline
 layer start
 ```
@@ -39,7 +39,7 @@ Name this directory: 'order_review_model'. Under this new directory, there must 
 - **order_review.yaml**: A yaml file to define your model on Layer
 
 
-Create a new file _order_review.py_ under the directory _/models/order_review_model/_ 
+> Create a new file _order_review_model.py_ under the directory _/models/order_review_model/_ 
 ```python
 """
 This file demonstrates how we can develop and train our model by using the
@@ -57,33 +57,29 @@ from sklearn.metrics import r2_score
 
 def train_model(
         train: Train,
-        order_features_base: Featureset("order_features_trial"),
-        order_high_level_features: Featureset("order_high_level_features_trial2")
+        order_features_base: Featureset("order_features_tutorial5"),
+        order_high_level_features: Featureset("order_features_tutorial5_new")
 ) -> Any:
 
-    # Step 1: TRAINING DATA GENERATION PROCESS
-    # Step 1.1 Fetch order features: Convert the Layer featureset to pandas dataframe
+    # TRAINING DATA GENERATION
+    # Convert the Layer featureset to pandas dataframe and select relevant columns (our target variable REVIEW_SCORE is also among these features)
     order_features_base = order_features_base.to_pandas().dropna()
-    order_features_base_subset = order_features_base[["ORDER_ID","REVIEW_SCORE","ORDER_STATUS","MAIN_PRODUCT_CATEGORY","MAIN_PAYMENT_TYPE","DAYS_BETWEEN_ESTIMATE_ACTUAL_DELIVERY","AVG_PRODUCT_NAME_LENGTH","AVG_PRODUCT_DESCRIPTION_LENGTH","AVG_PRODUCT_PHOTOS_QTY"]]
-
+    selected_columns = ["ORDER_ID","REVIEW_SCORE","ORDER_STATUS","MAIN_PRODUCT_CATEGORY","MAIN_PAYMENT_TYPE","DAYS_BETWEEN_ESTIMATE_ACTUAL_DELIVERY","AVG_PRODUCT_NAME_LENGTH","AVG_PRODUCT_DESCRIPTION_LENGTH","AVG_PRODUCT_PHOTOS_QTY"]
+    order_features_base_subset = order_features_base[selected_columns]
+    # Convert the Layer featureset to pandas dataframe
     order_high_level_features = order_high_level_features.to_pandas().dropna()
-
+    # Merge 2 featuresets
     order_features_all = order_features_base_subset.merge(order_high_level_features, left_on='ORDER_ID', right_on='ORDER_ID', how='left')
 
-
-    # Step 1.2 Label Generation Process
-    # 1.2.1. Fetch customer features: Convert the Layer featureset to pandas dataframe
-
-    # 3. Final Training Data: Fetch only the first order features of users and drop excluded and na columns from the final dataframe
+    # Final Training Data: Drop excluded columns and NA rows from the data
     excluded_cols = ['ORDER_ID']
     training_data_df = order_features_all\
         .drop(columns=excluded_cols) \
         .dropna()
 
 
-    #STEP II: MODEL FITTING
-    # 1. Define all paramaters
-    # Parameters for data split
+    # MODEL FITTING
+    # Define all paramaters
     test_size_fraction = 0.33
     random_seed = 42
     # Model Parameters
@@ -106,7 +102,7 @@ def train_model(
                           "subsample": subsample
                           })
 
-    # 2. Data Split
+    # Data Split
     X_train, X_test, Y_train, Y_test = train_test_split(training_data_df.drop(columns=['REVIEW_SCORE']),
                                                         training_data_df.REVIEW_SCORE,
                                                         test_size=test_size_fraction,
@@ -115,8 +111,8 @@ def train_model(
     train.register_input(X_train)
     train.register_output(Y_train)
 
-    # 3. Pipeline Steps
-    # Pre-processing: One-hot encoding on a categorical variable: MAIN_PRODUCT_CATEGORY
+    # DEFINE PIPELINE STEPS
+    # Pre-processing: One-hot encoding on categorical variables
     categorical_cols = ['MAIN_PRODUCT_CATEGORY','MAIN_PAYMENT_TYPE','ORDER_STATUS']
     transformer = ColumnTransformer(transformers=[('cat', OneHotEncoder(handle_unknown='ignore'), categorical_cols)],remainder='passthrough')
     # Model: Define a Gradient Boosting Classifier
@@ -128,14 +124,14 @@ def train_model(
                                        subsample=subsample,
                                        random_state=random_state)
 
-    # 4. Pipeline fit
+    # FIT PIPELINE
     pipeline = Pipeline(steps=[('t', transformer), ('m', model)])
     pipeline.fit(X_train, Y_train)
 
-    # STEP III: MODEL EVALUATION
-    # 1. Predict probabilities of target 1:Churn
+    # MODEL EVALUATION
+    # Predict review scores of orders
     yhat_test = pipeline.predict(X_test)
-    # 2. Calculate average precision and area under the receiver operating characteric curve (ROC AUC)
+    # Calculate R2 Score
     r2score = r2_score(Y_test, yhat_test)
 
     # Layer logging performance metrics
@@ -152,25 +148,24 @@ scikit-learn==1.0
 ## Step IV: Create a new yaml file for your model
 Create a yaml file _order_review_ under the directory _/models/order_review_model/_  and copy the content below and paste it into this file
 ```yaml
-# Layer Onboarding Project
-#
 # Any directory includes an `model.yaml` will be treated as a ml model project.
 # In this `yaml` file, we will define the attributes of our model.
 # For more information on Model Configuration: https://docs.beta.layer.co/docs/modelcatalog/modelyml
 
 apiVersion: 1
-
-# Name and description of our model
-name: "order_review_model"
-description: "Order Review Score Prediction Model"
 type: model
 
+# Name and description of our model
+name: "order_review_model_tutorial5"
+description: "Order Review Score Prediction Model"
+
+
 training:
-  name: order_review_training
+  name: "order_review_training_tutorial5"
   description: "Order Review Score Training"
 
   # The source model definition file with a `train_model` method
-  entrypoint: model.py
+  entrypoint: order_review_model.py
 
   # File includes the required python libraries with their correct versions
   environment: requirements.txt
@@ -178,4 +173,17 @@ training:
   # Name of the predefined fabric config for model training.
   # Documentation (https://docs.beta.layer.co/docs/reference/fabrics)
   fabric: "f-medium"
+```
+
+## Step V: Run the layer command on CLI to build the Order Review model
+To build the new model, run:
+```commandline
+layer model start order_review_model_tutorial5
+```
+
+Congratulations, you have just completed the tutorial. Now, you know how to build a different ML model by reusing of existing features on Layer.
+
+To check if you are done correct, go and check the Tutorial 5's after project:
+```commandline
+cd onboarding-project-and-tutorials/tutorials_after/tutorial5_after
 ```

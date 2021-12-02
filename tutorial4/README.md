@@ -36,12 +36,12 @@ To check out the Tutorial IV, run:
 ```
 
 ## Step II: Train the model version 1.1 [Baseline]
-To build the whole project for the first time:
+To build existing Layer entities including the baseline model for the first time, run:
 ```commandline
 layer start
 ```
 
-To see the model version 1.1 on Web UI:
+Once you run the command above, you will also have a model trained. To see the model version 1.1 on the Web UI:
 > Click on the model link on the CLI
 
 ## Step III: Train the model version 2.1 [Change in model parameters]
@@ -61,28 +61,49 @@ To see the model version 2.1 on Web UI:
 
 ## Step IV: Train the model version 3.1 [Change in model features]
 To fetch the new featureset, change function signature of the `train_model` in the **/models/churn_model/model.py** file
+
+BEFORE
 ```python
 def train_model(
         train: Train,
-        order_features_base: Featureset("order_features_trial"),
-        order_high_level_features: Featureset("order_high_level_features_trial2"),
-        customer_features: Featureset("customer_features_trial")
+        order_features: Featureset("order_features_tutorial4"),
+        customer_features: Featureset("customer_features_tutorial4")
 ) -> Any:
 ```
 
-To merge 2 different order featuresets, change the  _'Step 1.1'_ in the **/models/churn_model/model.py** file as shown below
+AFTER
+```python
+def train_model(
+        train: Train,
+        order_features_base: Featureset("order_features_tutorial4"),
+        order_high_level_features: Featureset("order_features_tutorial4_new"),
+        customer_features: Featureset("customer_features_tutorial4")
+) -> Any:
+```
+
+To merge 2 different order featuresets, change the  _# FEATURES GENERATION_ part in the **/models/churn_model/churn_model.py** file as shown below
+
+BEFORE
 ```python
 ...
-    # STEP I: TRAINING DATA GENERATION PROCESS
-    # 1. Fetch order features: Convert the Layer featureset to pandas dataframe
-    order_features_base = order_features_base.to_pandas()
-    order_high_level_features = order_high_level_features.to_pandas()
+    # FEATURES GENERATION
+    # Convert the Layer featureset to pandas dataframe
+    order_features = order_features.to_pandas()
+...
+```
+AFTER
+```python
+...
+# FEATURES GENERATION
+    # Convert the Layer featuresets to pandas dataframes
+    order_features_base = order_features_base.to_pandas().dropna()
+    order_high_level_features = order_high_level_features.to_pandas().dropna()
+    # Merge 2 featuresets
     order_features = order_features_base.merge(order_high_level_features, left_on='ORDER_ID', right_on='ORDER_ID', how='left')
 ...
 ```
 
-
-To re-build the model after the parameter change: 
+To re-build the model after the changes in the model features: 
 _[No need to build the whole project all over again]_
 ```commandline
 layer start model churn_model
@@ -93,7 +114,7 @@ To see the model version 3.1 on Web UI:
 
 Congratulations, you have just completed the tutorial. Now, you know how to build different versions of the same ML model and compare them on Layer.
 
-To check if you are done correct, go and check the Tutorial 3's after project:
+To check if you are done correct, go and check the Tutorial 4's after project:
 ```commandline
 cd onboarding-project-and-tutorials/tutorials_after/tutorial4_after
 ```
