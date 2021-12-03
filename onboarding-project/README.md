@@ -1,7 +1,7 @@
 # Onboarding Project: Churn Prediction
 
 ## Install and run
-To check out the Tutorial I, run:
+To check out the onboarding project, run:
 ```commandline
 1. layer clone https://github.com/layerml/onboarding-project-and-tutorials.git
 2. cd onboarding-project-and-tutorials/onboarding-project
