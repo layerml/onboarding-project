@@ -1,4 +1,4 @@
-# Tutorial III: How to build your first model using Layer Entities
+# Tutorial III: How to build your first model using Layer Featuresets
 
 
 ## What you will learn in this tutorial?
