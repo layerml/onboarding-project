@@ -45,12 +45,13 @@ Once you run the command above, you will also have a model trained. To see the m
 > Click on the model link on the CLI
 
 ## Step III: Train the model version 2.1 [Change in model parameters]
-Go and find the parameter `max_depth = 6` in the model.py source file and change its value:
+Go and find parameters `max_depth = 6` and `subsample = 0.8` in the model.py source file and change its value:
 ```commandline
 max_depth = 10
+subsample = 0.2
 ```
 
-To re-build the model after the parameter change: 
+To re-build the model after the parameter changes: 
 _[No need to build the whole project all over again]_
 ```commandline
 layer start model churn_model

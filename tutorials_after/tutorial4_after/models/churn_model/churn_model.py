@@ -61,11 +61,11 @@ def train_model(
     random_seed = 42
     # Model Parameters
     learning_rate = 0.01
-    max_depth = 6
+    max_depth = 10
     max_features = 'sqrt'
     min_samples_leaf = 10
     n_estimators = 100
-    subsample = 0.8
+    subsample = 0.2
     random_state = 42
 
     # Layer logging all parameters
